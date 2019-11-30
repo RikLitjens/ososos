@@ -9,7 +9,7 @@
 #include <sys/types.h>
 #include <fcntl.h>
 #define __need_sigevent_t
-#include <bits/siginfo.h>
+#include "bitss.h"
 #define __need_timespec
 #include <time.h>
 
