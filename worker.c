@@ -70,7 +70,7 @@ int main (int argc, char * argv[])
     rsleep(10000000);
     getattr(mq_fd_jobs);
     printf("worker starts receiving");    
-    mq_receive (mq_fd_jobs, (char *) &job, sizeof (job), NULL);
+    mq_receive (mq_fd_jobs, (char *) &job, sizeof (job), 1);
     
        
     rsleep(10000000);
