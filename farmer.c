@@ -122,7 +122,7 @@ int main (int argc, char * argv[])
             mq_close (mq_fd_jobs);
             mq_unlink (mq_name_jobs);
             mq_unlink (mq_name_results);   
-        }
+        
     }
 
 
