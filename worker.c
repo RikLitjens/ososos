@@ -64,9 +64,9 @@ int main (int argc, char * argv[])
     MQ_JOB              job;
     MQ_RESULT           result;
     struct mq_attr      attr;
-    int                 rtn = mq_getattr (mq_fd_jobs, &attr); 
-    uint128_t           tryHash;
-    char                tryPsw[6];
+    //int                 rtn = mq_getattr (mq_fd_jobs, &attr); 
+    //uint128_t           tryHash;
+    //char                tryPsw[6];
 
 
     printf("starting while loop");
@@ -81,8 +81,8 @@ int main (int argc, char * argv[])
             break;
         }
         
-        strncpy(tryPsw, job.st, sizeof(job.st));
-        printf(tryPsw);
+        //strncpy(tryPsw, job.st, sizeof(job.st));
+        //printf(tryPsw);
         rsleep(10000000);
         //tryHash = md5s(tryPsw, sizeof(tryPsw));
 
