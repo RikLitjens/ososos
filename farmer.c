@@ -66,8 +66,8 @@ int main (int argc, char * argv[])
     attr.mq_maxmsg  = MQ_MAX_MESSAGES;
     attr.mq_msgsize = MAX_MESSAGE_LENGTH;
     
-    sprintf (mq_fd_jobs, "/mq_request_%s_%d", STUDENT_NAME, getpid());
-    sprintf (mq_fd_results, "/mq_response_%s_%d", STUDENT_NAME, getpid());
+    sprintf (mq_name_jobs, "/mq_request_%s_%d", STUDENT_NAME, getpid());
+    sprintf (mq_name_results, "/mq_response_%s_%d", STUDENT_NAME, getpid());
     
     mq_fd_jobs = mq_open (mq_name_jobs, O_WRONLY | O_CREAT | O_EXCL, 0600, &attr);
     mq_fd_results = mq_open (mq_name_results, O_RDONLY | O_CREAT | O_EXCL, 0600, &attr);
