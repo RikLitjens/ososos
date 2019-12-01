@@ -81,12 +81,13 @@ int main (int argc, char * argv[])
         strncpy(tryPsw, job.st, sizeof(job.st));
 
         rsleep(10000000);
-        
         tryHash = md5s(tryPsw, sizeof(tryPsw));
+
         printf("starts with '%c'\n", job.st);
 
+        strncpy(result.m, "afbouw", 6);
         if(tryHash == job.h) {
-            result.m = tryPsw;
+            strncpy(result.m, tryPsw, sizeof(tryPsw));
             result.h = job.h;
             mq_send (mq_fd_results, (char *) &result, attr.mq_maxmsg, 0);
         }
