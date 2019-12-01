@@ -30,7 +30,7 @@ typedef struct
     // a data structure with 2 members
     // start symbol s and hash h
     char                    s;
-    uint128_t               h;
+   // uint128_t               h;
 } MQ_JOB;
 
 typedef struct
@@ -39,7 +39,7 @@ typedef struct
     // result --only if succesfull 
     // msg m corresponding to hash h 
     char                    m[6];
-    uint128_t               h;
+   // uint128_t               h;
 } MQ_RESULT;
 
 #endif
