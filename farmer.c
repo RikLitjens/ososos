@@ -105,14 +105,16 @@ int main (int argc, char * argv[])
                     printf("0x%llx\n", job.h);
                     mq_send (mq_fd_jobs, (char *) &job, MAX_MESSAGE_LENGTH, 0);
                 }
-                
+                printf("ja dis er nou 1\n");                
             }
+
+            printf("of gaat ie hier ergens scheef\n");
             job.st = ALPHABET_START_CHAR;
             job.h  = md5_list[0];
             job.f  = 1;
             mq_send (mq_fd_jobs, (char *) &job, MAX_MESSAGE_LENGTH, 0);
 
-            printf("DONE SENDING STUFF FROM PARENT-------------------");
+            printf("DONE SENDING STUFF FROM PARENT-------------------\n");
 
 
             /**
