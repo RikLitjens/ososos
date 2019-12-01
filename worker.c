@@ -59,14 +59,14 @@ int main (int argc, char * argv[])
     /**
      * Open message queues 
      */
-    // mqd_t               mq_fd_jobs;
-    // mqd_t               mq_fd_results;
-    // MQ_JOB              job;
-    // MQ_RESULT           result;
-    // struct mq_attr      attr;
-    // int                 rtn = mq_getattr (mq_fd_jobs, &attr); 
-    // uint128_t           tryHash;
-    // char                tryPsw[6];
+    mqd_t               mq_fd_jobs;
+    mqd_t               mq_fd_results;
+    MQ_JOB              job;
+    MQ_RESULT           result;
+    struct mq_attr      attr;
+    int                 rtn = mq_getattr (mq_fd_jobs, &attr); 
+    uint128_t           tryHash;
+    char                tryPsw[6];
 
 
     // printf("starting while loop");
