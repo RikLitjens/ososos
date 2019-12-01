@@ -27,6 +27,22 @@
 
 static void rsleep (int t);
 
+static void 
+getattr (mqd_t mq_fd)
+{
+    struct mq_attr      attr;
+    int                 rtnval;
+    
+    rtnval = mq_getattr (mq_fd, &attr);
+    if (rtnval == -1)
+    {
+        perror ("mq_getattr() failed");
+        exit (1);
+    }
+    fprintf (stderr, "%d: mqdes=%d max=%ld size=%ld nrof=%ld\n",
+                getpid(), 
+                mq_fd, attr.mq_maxmsg, attr.mq_msgsize, attr.mq_curmsgs);
+}
 
 int main (int argc, char * argv[])
 {
@@ -52,7 +68,7 @@ int main (int argc, char * argv[])
     mq_fd_results = mq_open (argv[2], O_WRONLY);
 
     rsleep(10000000);
-    printf("worker starts receiving %ld", mq_fd_jobs.mq_curmsgs)    
+    printf("worker starts receiving %ld", getattr(mq_fd_jobs).mq_curmsgs);    
     mq_receive (mq_fd_jobs, (char *) &job, sizeof (job), NULL);
        
     rsleep(10000000);
