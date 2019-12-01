@@ -79,33 +79,33 @@ int main (int argc, char * argv[])
     }
     
     
-    // while (true) {
-    //     printf("worker starts receiving '%c'\n", job.st); 
-    //     mq_receive (mq_fd_jobs, (char *) &job, 20 , NULL); //attr.mq_maxmsg
-    //     if (job.f == 1) {
-    //         break;
-    //     }
+    while (true) {
+        printf("worker starts receiving '%c'\n", job.st); 
+        mq_receive (mq_fd_jobs, (char *) &job, 20 , NULL); //attr.mq_maxmsg
+        if (job.f == 1) {
+            break;
+        }
         
-    //     strncpy(tryPsw, job.st, sizeof(job.st));
-    //     printf(tryPsw);
-    //     rsleep(10000000);
-    //     tryHash = md5s(tryPsw, sizeof(tryPsw));
+        strncpy(tryPsw, job.st, sizeof(job.st));
+        printf(tryPsw);
+        rsleep(10000000);
+        tryHash = md5s(tryPsw, sizeof(tryPsw));
 
-    //     printf("starts with '%c'\n", job.st);
+        printf("starts with '%c'\n", job.st);
 
-    //     strncpy(result.m, "afbouw", 6);
-    //     if(tryHash == job.h) {
-    //         strncpy(result.m, tryPsw, sizeof(tryPsw));
-    //         result.h = job.h;
-    //         mq_send (mq_fd_results, (char *) &result, attr.mq_maxmsg, 0);
-    //     }
+        strncpy(result.m, "afbouw", 6);
+        if(tryHash == job.h) {
+            strncpy(result.m, tryPsw, sizeof(tryPsw));
+            result.h = job.h;
+            mq_send (mq_fd_results, (char *) &result, attr.mq_maxmsg, 0);
+        }
         
-    // }
+    }
 
-    // mq_send (mq_fd_jobs, (char *) &job, attr.mq_maxmsg, 0);
+    mq_send (mq_fd_jobs, (char *) &job, attr.mq_maxmsg, 0);
 
-    // mq_close (mq_fd_results);
-    // mq_close (mq_fd_jobs);
+    mq_close (mq_fd_results);
+    mq_close (mq_fd_jobs);
     
     return (0);
 }
