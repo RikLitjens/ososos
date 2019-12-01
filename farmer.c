@@ -75,6 +75,9 @@ int main (int argc, char * argv[])
     getattr(mq_fd_jobs);
     getattr(mq_fd_results);
 
+
+
+    printf ("papa %d has been started\n\n", processID);
     //  * create the child processes (see process_test() and message_queue_test())
     processID = fork();
     if (processID < 0)
@@ -88,13 +91,13 @@ int main (int argc, char * argv[])
         {
             // child-stuff
             //message_queue_child ();
-            printf("kind");
+            printf ("keindske %d has been started\n\n", processID);
             exit (0);
         }
         else
         {
             // remaining of the parent stuff
-            printf("pater");
+            printf ("ietsiets %d has been started\n\n", processID);
             // fill job
             // job.s = 73;
             // job.h =   ;
