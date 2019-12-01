@@ -89,7 +89,7 @@ int main (int argc, char * argv[])
             // child-stuff
             //message_queue_child ();
             char str[20];
-            sprintf(str, "%d", 42);
+            sprintf(str, "%d", processID);
             printf(str);
             exit (0);
         }
@@ -97,7 +97,7 @@ int main (int argc, char * argv[])
         {
             // remaining of the parent stuff
             char str2[20];
-            sprintf(str2, "%d", 42);
+            sprintf(str2, "%d", processID);
             printf(str2);
             // fill job
             // job.s = 73;
