@@ -63,20 +63,21 @@ int main (int argc, char * argv[])
     mqd_t               mq_fd_results;
     MQ_JOB              job;
     MQ_RESULT           result;
+    struct mq_attr      attr;
+    int                 rtn = mq_getattr (mq_fd_jobs, &attr);   
 
     mq_fd_jobs    = mq_open (argv[1], O_RDONLY);
     mq_fd_results = mq_open (argv[2], O_WRONLY);
+
     
-    printf("worker starts receiving '%c'\n", job.st);
-    getattr(mq_fd_jobs);    
-    mq_receive (mq_fd_jobs, (char *) &job, 30 , NULL);
+    printf("worker starts receiving '%c'\n", job.st); 
+    mq_receive (mq_fd_jobs, (char *) &job, attr.mq_maxmsg , NULL);
     
     rsleep(10000000);
-    getattr(mq_fd_jobs);
     printf("starts with '%c'\n", job.st);
 
     strncpy(result.m, "afbouw", 6);
-    mq_send (mq_fd_results, (char *) &result, sizeof (result), 0);
+    mq_send (mq_fd_results, (char *) &result, attr.mq_maxmsg, 0);
 
     mq_close (mq_fd_results);
     mq_close (mq_fd_jobs);
