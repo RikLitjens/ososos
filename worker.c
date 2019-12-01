@@ -67,13 +67,13 @@ int main (int argc, char * argv[])
     mq_fd_jobs    = mq_open (argv[1], O_RDONLY);
     mq_fd_results = mq_open (argv[2], O_WRONLY);
 
-    rsleep(10000000);
     getattr(mq_fd_jobs);
-    printf("worker starts receiving %d", job.st);    
+    
+    printf("worker starts receiving %d"\n, job.st);    
     mq_receive (mq_fd_jobs, (char *) &job, sizeof (job), NULL);
     
-       
-    rsleep(10000000);
+    sleep(3);
+    
     getattr(mq_fd_jobs);
     printf("starts with %d, %d\n", job.st, sizeof(job));
 
