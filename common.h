@@ -9,6 +9,7 @@
 #ifndef COMMON_H
 #define COMMON_H
 
+#include "md5s.h"
 
 // maximum size for any message in the tests
 #define MAX_MESSAGE_LENGTH	6
@@ -20,7 +21,7 @@
 #define STUDENT_NAME        "Rik_Litjens"
 static char                 mq_name_jobs[80];
 static char                 mq_name_results[80];
-extern uint128_t;
+
 /**
  * Datastructures for the jobs and results that are 
  * to be interchanged between the farmer and its workers 
