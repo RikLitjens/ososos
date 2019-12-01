@@ -122,9 +122,6 @@ int main (int argc, char * argv[])
             mq_close (mq_fd_jobs);
             mq_unlink (mq_name_jobs);
             mq_unlink (mq_name_results);   
-        
-    }
-
 
     //  * do the farming
     //  * wait until the chilren have been stopped (see process_test())
