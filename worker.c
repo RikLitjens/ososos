@@ -68,10 +68,12 @@ int main (int argc, char * argv[])
     uint128_t           tryHash;
     char                tryPsw[6];
 
+
+    printf("starting while loop");
     mq_fd_jobs    = mq_open (argv[1], O_RDWR);
     mq_fd_results = mq_open (argv[2], O_WRONLY);
     
-    printf("starting while loop");
+    
     while (true) {
         //printf("worker starts receiving '%c'\n", job.st); 
         mq_receive (mq_fd_jobs, (char *) &job, attr.mq_maxmsg , NULL);

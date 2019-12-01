@@ -102,6 +102,7 @@ int main (int argc, char * argv[])
                     job.h  = md5_list[i];
                     job.f  = 0;
                     printf ("parent: sending... '%c'\n", job.st);
+                    printf("0x%llx\n", job.h);
                     mq_send (mq_fd_jobs, (char *) &job, MAX_MESSAGE_LENGTH, 0);
                 }
                 
