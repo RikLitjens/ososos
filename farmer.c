@@ -95,32 +95,9 @@ int main (int argc, char * argv[])
              * pump the queue with jobs to do
              */
             job.st = 'b';
+            job.h  =  md5_list[0];
             printf ("parent: sending... '%c'\n", job.st);
-            mq_send (mq_fd_jobs, (char *) &job, sizeof (job), 0);
-             
-            // job.s = 73;
-            // job.h =   ;
-
-            // sleep (3);
-            // // send the request
-            // printf ("parent: sending...\n");
-            // mq_send (mq_fd_request, (char *) &job, sizeof (job), 0);
-
-            // sleep (3);
-            // // read the result and store it in the response message
-            // printf ("parent: receiving...\n");
-            // mq_receive (mq_fd_response, (char *) &rsp, sizeof (rsp), NULL);
-
-            // printf ("parent: received: %d, '", rsp.e);
-            // // printing characters of f[] separately:
-            // for (int i = 0; i < rsp.e; i++)
-            // {
-            //     printf ("%c", rsp.f[i]);
-            // }
-            // // printing g[] in one step (because it has the \0-terminator):
-            // printf ("', '%s'\n", rsp.g);
-    
-            // sleep (1);
+            mq_send (mq_fd_jobs, (char *) &job, MAX_MESSAGE_LENGTH , 0);
 
             /**
              * Wait until all workers have finished working
@@ -132,7 +109,7 @@ int main (int argc, char * argv[])
              * Evaluate work done by the workers
              */ 
             printf ("parent: receiving...\n");
-            mq_receive (mq_fd_results, (char *) &result, sizeof (result), NULL);
+            mq_receive (mq_fd_results, (char *) &result, MAX_MESSAGE_LENGTH, NULL);
 
             printf ("parent: received: %s, '", result.m);        
 
