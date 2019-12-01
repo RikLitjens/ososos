@@ -29,9 +29,11 @@ static char                 mq_name_results[80];
 typedef struct
 {
     // a data structure with 2 members
-    // start symbol s and hash h
+    // start symbol s and hash h and 
+    // f, 1 if all jobs are in queue else 0
     char                       st;
     uint128_t                  h;
+    int                        f;
 } MQ_JOB;
 
 typedef struct

@@ -94,10 +94,18 @@ int main (int argc, char * argv[])
             /**
              * pump the queue with jobs to do
              */
-            job.st = 'b';
-            job.h  =  md5_list[0];
-            printf ("parent: sending... '%c'\n", job.st);
-            mq_send (mq_fd_jobs, (char *) &job, MAX_MESSAGE_LENGTH , 0);
+            for (size_t i = 0; i < MD5_LIST_NROF; i++)
+            {
+                for (size_t j = 0; j < ALPHABET_NROF_CHAR; j++)
+                {
+                    job.st = ALPHABET_START_CHAR + j;
+                    job.h  = md5_list[i];
+                    job.f  = 0;
+                    printf ("parent: sending... '%c'\n", job.st);
+                    mq_send (mq_fd_jobs, (char *) &job, MAX_MESSAGE_LENGTH , 0);
+                }
+                
+            }
 
             /**
              * Wait until all workers have finished working
