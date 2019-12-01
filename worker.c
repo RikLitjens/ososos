@@ -86,10 +86,10 @@ int main (int argc, char * argv[])
             break;
         }
         
-        strncpy(tryPsw, job.st, sizeof(job.st));
-        printf(tryPsw);
+        //strncpy(tryPsw, job.st, sizeof(job.st));
+        //printf(tryPsw);
         rsleep(10000000);
-        tryHash = md5s(tryPsw, sizeof(tryPsw));
+        //tryHash = md5s(tryPsw, sizeof(tryPsw));
 
         printf("starts with '%c'\n", job.st);
 
