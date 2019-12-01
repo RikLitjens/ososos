@@ -41,6 +41,8 @@ int main (int argc, char * argv[])
     //    until there are no more tasks to do
     //  * close the message queues
 
+    printf("kaas");
+    rsleep(10000000);
     printf(argv[1]);
     
     return (0);
