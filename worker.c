@@ -69,11 +69,11 @@ int main (int argc, char * argv[])
 
     getattr(mq_fd_jobs);
     
-    printf("worker starts receiving %d"\n, job.st);    
+    printf("worker starts receiving %d\n", job.st);    
     mq_receive (mq_fd_jobs, (char *) &job, sizeof (job), NULL);
     
     sleep(3);
-    
+
     getattr(mq_fd_jobs);
     printf("starts with %d, %d\n", job.st, sizeof(job));
 
