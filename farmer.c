@@ -77,7 +77,7 @@ int main (int argc, char * argv[])
 
 
 
-    printf ("papa %d has been started\n\n", processID);
+    printf ("papa %d has been started\n\n", getpid());
     //  * create the child processes (see process_test() and message_queue_test())
     processID = fork();
     if (processID < 0)
