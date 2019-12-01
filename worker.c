@@ -71,8 +71,10 @@ int main (int argc, char * argv[])
     getattr(mq_fd_jobs);
     printf("worker starts receiving");    
     mq_receive (mq_fd_jobs, (char *) &job, sizeof (job), NULL);
+    
        
     rsleep(10000000);
+    getattr(mq_fd_jobs);
     printf("starts with %d, %d\n", job.st, sizeof(job));
 
     strncpy(result.m, "afbouw", 6);
