@@ -26,6 +26,22 @@
 #include "settings.h"
 #include "common.h"
 
+static void 
+getattr (mqd_t mq_fd)
+{
+    struct mq_attr      attr;
+    int                 rtnval;
+    
+    rtnval = mq_getattr (mq_fd, &attr);
+    if (rtnval == -1)
+    {
+        perror ("mq_getattr() failed");
+        exit (1);
+    }
+    fprintf (stderr, "%d: mqdes=%d max=%ld size=%ld nrof=%ld\n",
+                getpid(), 
+                mq_fd, attr.mq_maxmsg, attr.mq_msgsize, attr.mq_curmsgs);
+}
 
 int main (int argc, char * argv[])
 {
@@ -50,8 +66,8 @@ int main (int argc, char * argv[])
     attr.mq_maxmsg  = MQ_MAX_MESSAGES;
     attr.mq_msgsize = MAX_MESSAGE_LENGTH;
     
-    sprintf (mq_fd_request, "/mq_request_%s_%d", STUDENT_NAME, getpid());
-    sprintf (mq_fd_result, "/mq_response_%s_%d", STUDENT_NAME, getpid());
+    sprintf (mq_fd_jobs, "/mq_request_%s_%d", STUDENT_NAME, getpid());
+    sprintf (mq_fd_results, "/mq_response_%s_%d", STUDENT_NAME, getpid());
     
     mq_fd_request = mq_open (mq_name_jobs, O_WRONLY | O_CREAT | O_EXCL, 0600, &attr);
     mq_fd_result = mq_open (mq_name_results, O_RDONLY | O_CREAT | O_EXCL, 0600, &attr);
@@ -72,13 +88,13 @@ int main (int argc, char * argv[])
         {
             // child-stuff
             //message_queue_child ();
-            printf(processID);
+            printf("a" + processID);
             exit (0);
         }
         else
         {
             // remaining of the parent stuff
-            printf(processID);
+            printf("a"+processID);
             // fill job
             // job.s = 73;
             // job.h =   ;
