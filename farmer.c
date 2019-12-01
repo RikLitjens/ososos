@@ -102,24 +102,31 @@ int main (int argc, char * argv[])
                     job.h  = md5_list[i];
                     job.f  = 0;
                     printf ("parent: sending... '%c'\n", job.st);
-                    mq_send (mq_fd_jobs, (char *) &job, MAX_MESSAGE_LENGTH , 0);
+                    mq_send (mq_fd_jobs, (char *) &job, MAX_MESSAGE_LENGTH, 0);
                 }
                 
             }
+            job.st = ALPHABET_START_CHAR;
+            job.h  = md5_list[0];
+            job.f  = 1;
+            mq_send (mq_fd_jobs, (char *) &job, MAX_MESSAGE_LENGTH, 0);
 
+
+            /**
+             * Evaluate work done by the workers
+             */
+            for (size_t i = 0; i < MD5_LIST_NROF; i++)
+            {
+                mq_receive (mq_fd_results, (char *) &result, MAX_MESSAGE_LENGTH, NULL);
+                printf ("parent: receiving...\n");
+                printf ("parent: received: %s\n, '", result.m); 
+            }
+             
             /**
              * Wait until all workers have finished working
              */ 
             for(int i = 0; i < NROF_WORKERS; i++)  
                     wait(NULL);
-
-            /**
-             * Evaluate work done by the workers
-             */ 
-            printf ("parent: receiving...\n");
-            mq_receive (mq_fd_results, (char *) &result, MAX_MESSAGE_LENGTH, NULL);
-
-            printf ("parent: received: %s, '", result.m);        
 
             /**
              * Close and delete the message queues 

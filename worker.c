@@ -64,20 +64,36 @@ int main (int argc, char * argv[])
     MQ_JOB              job;
     MQ_RESULT           result;
     struct mq_attr      attr;
-    int                 rtn = mq_getattr (mq_fd_jobs, &attr);   
+    int                 rtn = mq_getattr (mq_fd_jobs, &attr); 
+    uint128_t           tryHash;
+    char                tryPsw[6];
 
-    mq_fd_jobs    = mq_open (argv[1], O_RDONLY);
+    mq_fd_jobs    = mq_open (argv[1], O_RDWR);
     mq_fd_results = mq_open (argv[2], O_WRONLY);
-
     
-    //printf("worker starts receiving '%c'\n", job.st); 
-    mq_receive (mq_fd_jobs, (char *) &job, attr.mq_maxmsg , NULL);
-    
-    rsleep(10000000);
-    printf("starts with '%c'\n", job.st);
+    while (true) {
+        //printf("worker starts receiving '%c'\n", job.st); 
+        mq_receive (mq_fd_jobs, (char *) &job, attr.mq_maxmsg , NULL);
+        if (job.f == 1) {
+            break;
+        }
 
-    strncpy(result.m, "afbouw", 6);
-    mq_send (mq_fd_results, (char *) &result, attr.mq_maxmsg, 0);
+        strncpy(tryPsw, job.st, sizeof(job.st));
+
+        rsleep(10000000);
+        
+        tryHash = md5s(tryPsw, sizeof(tryPsw));
+        printf("starts with '%c'\n", job.st);
+
+        if(tryHash == job.h) {
+            result.m = tryPsw;
+            result.h = job.h;
+            mq_send (mq_fd_results, (char *) &result, attr.mq_maxmsg, 0);
+        }
+        
+    }
+
+    mq_send (mq_fd_jobs, (char *) &job, attr.mq_maxmsg, 0);
 
     mq_close (mq_fd_results);
     mq_close (mq_fd_jobs);
