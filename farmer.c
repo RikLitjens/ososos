@@ -135,7 +135,7 @@ int main (int argc, char * argv[])
             printf ("parent: receiving...\n");
             mq_receive (mq_fd_results, (char *) &result, sizeof (result), NULL);
 
-            printf ("parent: received: %d, '", result.m);        
+            printf ("parent: received: %s, '", result.m);        
 
             /**
              * Close and delete the message queues 
