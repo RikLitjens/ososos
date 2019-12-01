@@ -88,12 +88,12 @@ int main (int argc, char * argv[])
 
         printf("starts with '%c'\n", job.st);
 
-        strncpy(result.m, "afbouw", 6);
-        if(tryHash == job.h) {
-            strncpy(result.m, tryPsw, sizeof(tryPsw));
-            result.h = job.h;
-            mq_send (mq_fd_results, (char *) &result, attr.mq_maxmsg, 0);
-        }
+        //strncpy(result.m, "afbouw", 6);
+        // if(tryHash == job.h) {
+        //     strncpy(result.m, tryPsw, sizeof(tryPsw));
+        //     result.h = job.h;
+        //     mq_send (mq_fd_results, (char *) &result, attr.mq_maxmsg, 0);
+        // }
         
     }
 
