@@ -85,7 +85,7 @@ int main (int argc, char * argv[])
                     { 
                         printf("[son] pid %d from [parent] pid %d\n", getpid(), getppid());
                         static char *argv[]={"worker", mq_name_jobs, mq_name_results, NULL}; 
-                        execv("./",argv);
+                        execv("/home/klaas/ososos",argv);
                         exit(0); 
                     } 
                 } 
