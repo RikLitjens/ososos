@@ -40,10 +40,26 @@ int main (int argc, char * argv[])
     //      - write the results to a message queue
     //    until there are no more tasks to do
     //  * close the message queues
+    /**
+     * Open message queues 
+     */
+    mqd_t               mq_fd_jobs;
+    mqd_t               mq_fd_results;
+    MQ_JOB              job;
+    MQ_RESULT           result;
 
-    printf("kaas");
+    mq_fd_jobs    = mq_open (argv[1], O_RDONLY);
+    mq_fd_results = mq_open (argv[2], O_WRONLY);
+
+    mq_receive (mq_fd_jobs, (char *) &job, sizeof (job), NULL);
+    printf("starts with %c\n", job.s);    
     rsleep(10000000);
-    printf(argv[1]);
+
+    result.m = "afbouw";
+    mq_send (mq_fd_results, (char *) &result, sizeof (result), 0);
+
+    mq_close (mq_fd_results);
+    mq_close (mq_fd_jobs);
     
     return (0);
 }

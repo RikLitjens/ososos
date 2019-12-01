@@ -94,6 +94,10 @@ int main (int argc, char * argv[])
             /**
              * pump the queue with jobs to do
              */
+            job.s = 'b';
+            printf ("parent: sending...\n");
+            mq_send (mq_fd_jobs, (char *) &job, sizeof (job), 0);
+
              
             // job.s = 73;
             // job.h =   ;
@@ -127,7 +131,11 @@ int main (int argc, char * argv[])
 
             /**
              * Evaluate work done by the workers
-             */         
+             */ 
+            printf ("parent: receiving...\n");
+            mq_receive (mq_fd_results, (char *) &result, sizeof (result), NULL);
+
+            printf ("parent: received: %d, '", result.m);        
 
             /**
              * Close and delete the message queues 
