@@ -69,8 +69,8 @@ int main (int argc, char * argv[])
     sprintf (mq_fd_jobs, "/mq_request_%s_%d", STUDENT_NAME, getpid());
     sprintf (mq_fd_results, "/mq_response_%s_%d", STUDENT_NAME, getpid());
     
-    mq_fd_request = mq_open (mq_name_jobs, O_WRONLY | O_CREAT | O_EXCL, 0600, &attr);
-    mq_fd_result = mq_open (mq_name_results, O_RDONLY | O_CREAT | O_EXCL, 0600, &attr);
+    mq_fd_jobs = mq_open (mq_name_jobs, O_WRONLY | O_CREAT | O_EXCL, 0600, &attr);
+    mq_fd_results = mq_open (mq_name_results, O_RDONLY | O_CREAT | O_EXCL, 0600, &attr);
 
     getattr(mq_fd_jobs);
     getattr(mq_fd_results);
@@ -88,13 +88,17 @@ int main (int argc, char * argv[])
         {
             // child-stuff
             //message_queue_child ();
-            printf("a" + processID);
+            char str[20];
+            sprintf(str, "%d", 42);
+            printf(str);
             exit (0);
         }
         else
         {
             // remaining of the parent stuff
-            printf("a"+processID);
+            char str2[20];
+            sprintf(str2, "%d", 42);
+            printf(str2);
             // fill job
             // job.s = 73;
             // job.h =   ;
