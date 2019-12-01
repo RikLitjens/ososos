@@ -2,7 +2,7 @@
  * Operating Systems {2INCO} Practical Assignment
  * Interprocess Communication
  *
- * STUDENT_NAME_1 (STUDENT_NR_1)
+ * Rik Litjens (1317059)
  * STUDENT_NAME_2 (STUDENT_NR_2)
  *
  * Grading:
@@ -40,6 +40,8 @@ int main (int argc, char * argv[])
     //      - write the results to a message queue
     //    until there are no more tasks to do
     //  * close the message queues
+
+    printf(argv[1]);
     
     return (0);
 }

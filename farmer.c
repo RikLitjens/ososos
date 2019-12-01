@@ -2,7 +2,7 @@
  * Operating Systems {2INCO} Practical Assignment
  * Interprocess Communication
  *
- * STUDENT_NAME_1 (STUDENT_NR_1)
+ * Rik Litjens (1317059)
  * STUDENT_NAME_2 (STUDENT_NR_2)
  *
  * Grading:
@@ -77,21 +77,23 @@ int main (int argc, char * argv[])
 
 
 
-    printf ("papa %d has been started\n\n", getpid);
+    printf ("papa %d has been started\n\n", getpid());
     //  * create the child processes (see process_test() and message_queue_test())
-            for(int i=0;i<5;i++) // loop will run n times (n=5) 
+            for(int i = 0; i < NROF_WORKERS ; i++) // loop will run n times (n=5) 
                 { 
                     if(fork() == 0) 
                     { 
-                        printf("[son] pid %d from [parent] pid %d\n",getpid(),getppid()); 
+                        printf("[son] pid %d from [parent] pid %d\n", getpid(), getppid());
+                        static char *argv[]={"worker", mq_name_jobs, mq_name_results, NULL}; 
+                        execv("./",argv);
                         exit(0); 
                     } 
                 } 
-            for(int i=0;i<5;i++) // loop will run n times (n=5) 
-                    wait(NULL); 
-            // remaining of the parent stuff
-            printf ("ietsiets %d has been started\n\n", processID);
-            // fill job
+             
+            /**
+             * pump the queue with jobs to do
+             */
+             
             // job.s = 73;
             // job.h =   ;
 
@@ -115,9 +117,20 @@ int main (int argc, char * argv[])
             // printf ("', '%s'\n", rsp.g);
     
             // sleep (1);
-    
-            waitpid (processID, NULL, 0);   // wait for the child
-            
+
+            /**
+             * Wait until all workers have finished working
+             */ 
+            for(int i = 0; i < NROF_WORKERS; i++)  
+                    wait(NULL);
+
+            /**
+             * Evaluate work done by the workers
+             */         
+
+            /**
+             * Close and delete the message queues 
+             */             
             mq_close (mq_fd_results);
             mq_close (mq_fd_jobs);
             mq_unlink (mq_name_jobs);

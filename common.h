@@ -21,7 +21,6 @@
 static char                 mq_name_jobs[80];
 static char                 mq_name_results[80];
 
-
 //extern uint128_t;
 /**
  * Datastructures for the jobs and results that are 
@@ -38,9 +37,10 @@ typedef struct
 typedef struct
 {
     // a data structure with 2 members
-    // result succes suc and msg m when succesfull 
-    int                     suc;
+    // result --only if succesfull 
+    // msg m corresponding to hash h 
     char                    m[6];
+    uint128_t               h;
 } MQ_RESULT;
 
 #endif
