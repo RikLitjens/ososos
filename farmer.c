@@ -77,25 +77,18 @@ int main (int argc, char * argv[])
 
 
 
-    printf ("papa %d has been started\n\n", getpid());
+    printf ("papa %d has been started\n\n", getpid);
     //  * create the child processes (see process_test() and message_queue_test())
-    processID = fork();
-    if (processID < 0)
-    {
-        perror("fork() failed");
-        exit (1);
-    }
-    else
-    {
-        if (processID == 0)
-        {
-            // child-stuff
-            //message_queue_child ();
-            printf ("keindske %d has been started\n\n", processID);
-            exit (0);
-        }
-        else
-        {
+            for(int i=0;i<5;i++) // loop will run n times (n=5) 
+                { 
+                    if(fork() == 0) 
+                    { 
+                        printf("[son] pid %d from [parent] pid %d\n",getpid(),getppid()); 
+                        exit(0); 
+                    } 
+                } 
+            for(int i=0;i<5;i++) // loop will run n times (n=5) 
+                    wait(NULL); 
             // remaining of the parent stuff
             printf ("ietsiets %d has been started\n\n", processID);
             // fill job
