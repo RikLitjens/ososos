@@ -52,7 +52,7 @@ int main (int argc, char * argv[])
     mq_fd_results = mq_open (argv[2], O_WRONLY);
 
     rsleep(10000000);
-    printf("worker starts receiving");
+    printf("worker starts receiving %ld", mq_fd_jobs.mq_curmsgs)    
     mq_receive (mq_fd_jobs, (char *) &job, sizeof (job), NULL);
        
     rsleep(10000000);
