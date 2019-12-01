@@ -20,7 +20,7 @@
 #define STUDENT_NAME        "Rik_Litjens"
 static char                 mq_name_jobs[80];
 static char                 mq_name_results[80];
-
+extern uint128_t
 //extern uint128_t;
 /**
  * Datastructures for the jobs and results that are 
