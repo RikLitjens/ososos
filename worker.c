@@ -54,7 +54,7 @@ int main (int argc, char * argv[])
     mq_receive (mq_fd_jobs, (char *) &job, sizeof (job), NULL);
        
     rsleep(10000000);
-    printf("starts with '%c'\n", job.s);
+    printf("starts with '%c', %d\n", job.s, sizeof(job));
     printf(job.s); 
 
     strncpy(result.m, "afbouw", 6);
