@@ -51,7 +51,7 @@ int main (int argc, char * argv[])
     mq_fd_jobs    = mq_open (argv[1], O_RDONLY);
     mq_fd_results = mq_open (argv[2], O_WRONLY);
 
-    rsleep(10000000)
+    rsleep(10000000);
     mq_receive (mq_fd_jobs, (char *) &job, sizeof (job), NULL);
        
     rsleep(10000000);
