@@ -70,8 +70,13 @@ int main (int argc, char * argv[])
 
 
     printf("starting while loop");
-    mq_fd_jobs    = mq_open (argv[1], O_RDONLY);
-    mq_fd_results = mq_open (argv[2], O_WRONLY);
+    if (argc > 1 ) {
+        mq_fd_jobs    = mq_open (argv[1], O_RDONLY);
+        mq_fd_results = mq_open (argv[2], O_WRONLY);
+    } else {
+        printf("error");
+        return (1);
+    }
     
     
     // while (true) {
