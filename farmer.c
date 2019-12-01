@@ -94,7 +94,7 @@ int main (int argc, char * argv[])
             /**
              * pump the queue with jobs to do
              */
-            job.s = 'a';
+            job.s = 4;
             sleep (3);
             printf ("parent: sending... %c\n", job.s);
             mq_send (mq_fd_jobs, (char *) &job, sizeof (job), 0);
