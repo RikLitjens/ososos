@@ -96,7 +96,7 @@ int main (int argc, char * argv[])
              */
             job.st = 4;
             printf ("parent: sending... %d,%d\n", job.st,sizeof(job));
-            //mq_send (mq_fd_jobs, (char *) &job, sizeof (job), 0);
+            mq_send (mq_fd_jobs, (char *) &job, sizeof (job), 0);
              
             // job.s = 73;
             // job.h =   ;
