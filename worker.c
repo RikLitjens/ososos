@@ -70,7 +70,7 @@ int main (int argc, char * argv[])
 
 
     printf("starting while loop");
-    mq_fd_jobs    = mq_open (argv[1], O_RDWR);
+    mq_fd_jobs    = mq_open (argv[1], O_RDONLY);
     mq_fd_results = mq_open (argv[2], O_WRONLY);
     
     
@@ -81,8 +81,8 @@ int main (int argc, char * argv[])
             break;
         }
         
-        //strncpy(tryPsw, job.st, sizeof(job.st));
-        //printf(tryPsw);
+        strncpy(tryPsw, job.st, sizeof(job.st));
+        printf(tryPsw);
         rsleep(10000000);
         //tryHash = md5s(tryPsw, sizeof(tryPsw));
 
@@ -97,7 +97,7 @@ int main (int argc, char * argv[])
         
     }
 
-    mq_send (mq_fd_jobs, (char *) &job, attr.mq_maxmsg, 0);
+    //mq_send (mq_fd_jobs, (char *) &job, attr.mq_maxmsg, 0);
 
     mq_close (mq_fd_results);
     mq_close (mq_fd_jobs);
