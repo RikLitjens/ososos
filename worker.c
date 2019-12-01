@@ -82,7 +82,7 @@ int main (int argc, char * argv[])
         }
         
         //strncpy(tryPsw, job.st, sizeof(job.st));
-        printf(tryPsw);
+        //printf(tryPsw);
         rsleep(10000000);
         //tryHash = md5s(tryPsw, sizeof(tryPsw));
 
