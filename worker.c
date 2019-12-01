@@ -69,9 +69,9 @@ int main (int argc, char * argv[])
     char                tryPsw[6];
 
 
-    // printf("starting while loop");
-    // mq_fd_jobs    = mq_open (argv[1], O_RDONLY);
-    // mq_fd_results = mq_open (argv[2], O_WRONLY);
+    printf("starting while loop");
+    mq_fd_jobs    = mq_open (argv[1], O_RDONLY);
+    mq_fd_results = mq_open (argv[2], O_WRONLY);
     
     
     // while (true) {
