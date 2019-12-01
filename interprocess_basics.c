@@ -30,7 +30,7 @@
 #include <stdbool.h>
 #include <unistd.h>
 #include <errno.h>
-#include <mqueue.h>
+#include <mqueue.h
 #include <sys/wait.h>   /* for waitpid() */
 
 #define STUDENT_NAME        "your_name_here"

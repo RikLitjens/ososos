@@ -29,7 +29,7 @@ typedef struct
 {
     // a data structure with 2 members
     // start symbol s and hash h
-    int                       st;
+    char                       st;
    // uint128_t               h;
 } MQ_JOB;
 
