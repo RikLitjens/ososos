@@ -88,17 +88,13 @@ int main (int argc, char * argv[])
         {
             // child-stuff
             //message_queue_child ();
-            char str[20];
-            sprintf(str, "%d", processID);
-            printf(str);
+            printf("kind");
             exit (0);
         }
         else
         {
             // remaining of the parent stuff
-            char str2[20];
-            sprintf(str2, "%d", processID);
-            printf(str2);
+            printf("pater");
             // fill job
             // job.s = 73;
             // job.h =   ;
