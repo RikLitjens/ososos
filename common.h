@@ -10,6 +10,7 @@
 #define COMMON_H
 
 #include "md5s.h"
+#include "md5s.c"
 
 // maximum size for any message in the tests
 #define MAX_MESSAGE_LENGTH	6
