@@ -69,7 +69,7 @@ int main (int argc, char * argv[])
     char                tryPsw[6];
 
 
-    printf("starting while loop");
+    printf("starting while loop\n");
     if (argc > 1 ) {
         mq_fd_jobs    = mq_open (argv[1], O_RDONLY);
         mq_fd_results = mq_open (argv[2], O_WRONLY);
@@ -79,7 +79,7 @@ int main (int argc, char * argv[])
     }
     
     
-    while (true) {
+    while (1) {
         printf("worker starts receiving '%c'\n", job.st); 
         mq_receive (mq_fd_jobs, (char *) &job, 20 , NULL); //attr.mq_maxmsg
         if (job.f == 1) {
