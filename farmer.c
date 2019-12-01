@@ -85,7 +85,7 @@ int main (int argc, char * argv[])
                     { 
                         printf("[son] pid %d from [parent] pid %d\n", getpid(), getppid());
                         static char *argv[]={"worker", mq_name_jobs, mq_name_results, NULL}; 
-                        execv("./worker",argv);
+                        execv("./worker", argv);
 
                         exit(127); 
                     } 
@@ -95,9 +95,10 @@ int main (int argc, char * argv[])
              * pump the queue with jobs to do
              */
             job.s = 'a';
+            sleep (3);
             printf ("parent: sending... %c\n", job.s);
             mq_send (mq_fd_jobs, (char *) &job, sizeof (job), 0);
-
+            sleep (3);
              
             // job.s = 73;
             // job.h =   ;
