@@ -79,7 +79,6 @@ int main (int argc, char * argv[])
     
     
     while (1) {
-        getattr(mq_fd_jobs);
         mq_receive (mq_fd_jobs, (char *) &job, sizeof(job) , NULL); 
         if (job.f == 1) {
             break;
@@ -90,16 +89,12 @@ int main (int argc, char * argv[])
          */
         memset(tryPsw, 0, sizeof(tryPsw));
         snprintf(tryPsw, sizeof(tryPsw), "%c", job.st);
-        printf("Try: %s\n", tryPsw);
         
         rsleep(100000);
         
         /**
          * Hash the password we are trying and compare it
          */
-        
-        printf("starts with '%c', %d %d\n", job.st, job.f, sizeof(job));
-
         
         //start character plus all final characters 
         //(ie the final to be checked psw)

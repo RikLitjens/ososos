@@ -74,8 +74,6 @@ int main (int argc, char * argv[])
     attr.mq_msgsize = sizeof(result);
     mq_fd_results = mq_open (mq_name_results, O_RDONLY | O_CREAT | O_EXCL, 0600, &attr);
 
-    getattr(mq_fd_jobs);
-    getattr(mq_fd_results);
 
 
 
@@ -120,7 +118,6 @@ int main (int argc, char * argv[])
             for (size_t i = 0; i < MD5_LIST_NROF; i++)
             {
                 printf ("parent: receiving...\n");
-                getattr(mq_fd_results);
                 mq_receive (mq_fd_results, (char *) &result, sizeof(result), NULL);
 
                 printf ("parent: received: %s\n, '", result.m); 
