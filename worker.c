@@ -66,7 +66,7 @@ int main (int argc, char * argv[])
     struct mq_attr      attr;
     int                 rtn = mq_getattr (mq_fd_jobs, &attr); 
     uint128_t           tryHash;
-    char                tryPsw[6];
+    char                tryPsw[7];
 
 
     printf("starting while loop\n");
