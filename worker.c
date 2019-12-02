@@ -44,6 +44,24 @@ getattr (mqd_t mq_fd)
                 mq_fd, attr.mq_maxmsg, attr.mq_msgsize, attr.mq_curmsgs);
 }
 
+
+
+static void tryPassword(char tryPsw[6], uint128_t h) {
+
+    /**
+     * Hash the password we are trying and compare it
+    */
+    printf("now we try hashing\n");
+    tryHash = md5s(tryPsw, strlen(tryPsw));
+    if(tryHash == job.h) {
+            printf("Jawel hoor ze zijn gelijk tis wat\n");
+            strncpy(result.m, tryPsw, sizeof(tryPsw));
+            result.h = job.h;
+            mq_send (mq_fd_results, (char *) &result, sizeof(result), 0);
+    }
+
+
+} 
 int main (int argc, char * argv[])
 {
     // TODO:
@@ -90,23 +108,14 @@ int main (int argc, char * argv[])
         /**
          * Try different passwords beginning with st
          */
-
         snprintf(tryPsw, sizeof(tryPsw), "%c", job.st);
         printf("Try: %s\n", tryPsw);
-
+        
+        
         rsleep(10000000);
-
-        printf("now we try hashing\n");
-        tryHash = md5s(tryPsw, strlen(tryPsw));
-
         printf("starts with '%c', %d %d\n", job.st, job.f, sizeof(job));
-
-        if(tryHash == job.h) {
-            printf("Jawel hoor ze zijn gelijk tis wat\n");
-            strncpy(result.m, tryPsw, sizeof(tryPsw));
-            result.h = job.h;
-            mq_send (mq_fd_results, (char *) &result, sizeof(result), 0);
-        }
+        tryPasswords(tryPsw, job.h);
+        
         
     }
     printf("EINDEEEEEE WHILEEEEEEEEEEE LOOOOOOOOOOOOP\n");
