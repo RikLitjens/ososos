@@ -122,10 +122,10 @@ int main (int argc, char * argv[])
                     result.h = job.h;
                     mq_send (mq_fd_results, (char *) &result, sizeof(result), 0);
                     break;
-            }
-            
-        }        
-        
+                }      
+                tryPsw[2] = job.af;
+                printf("%s\n", tryPsw);
+            }          
     }
     printf("EINDEEEEEE WHILEEEEEEEEEEE LOOOOOOOOOOOOP\n");
 
