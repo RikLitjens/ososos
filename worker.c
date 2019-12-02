@@ -123,6 +123,7 @@ int main (int argc, char * argv[])
                     mq_send (mq_fd_results, (char *) &result, sizeof(result), 0);
                     break;
                 }      
+                tryPsw[1] = job.af;
                 tryPsw[2] = job.af;
                 printf("%s\n", tryPsw);
             }          
