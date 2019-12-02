@@ -89,7 +89,11 @@ int main (int argc, char * argv[])
         /**
          * Try different passwords beginning with st
          */
-        snprintf(tryPsw, sizeof(tryPsw), "%c", job.st);
+        tryPsw[0] = job.st;
+        for (size_t i = 1; i < MAX_MESSAGE_LENGTH; i++)
+            {
+                tryPsw[i] = '[';
+            }
         printf("Try: %s\n", tryPsw);
         
         rsleep(100000);
