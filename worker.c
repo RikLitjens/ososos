@@ -81,7 +81,7 @@ int main (int argc, char * argv[])
     
     while (1) {
         getattr(mq_fd_jobs);
-        mq_receive (mq_fd_jobs, (char *) &job, sizeof(job) , NULL); //attr.mq_maxmsg
+        mq_receive (mq_fd_jobs, (char *) &job, sizeof(job) , NULL); 
         if (job.f == 1) {
             break;
         }
