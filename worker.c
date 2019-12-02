@@ -148,7 +148,6 @@ int main (int argc, char * argv[])
                     if (tryPsw[i] < job.ast || tryPsw[i] > job.af)
                     {
                         /* continue until we find a letter */
-                        printf("EMTPY SO SKIP\n");
                         continue;   
                     }
                     //if element is a letter -----------------
@@ -204,7 +203,7 @@ int main (int argc, char * argv[])
                     }       
                 }
                 printf("%s\n", tryPsw);
-                sleep(1);
+                sleep(0.04);
             }          
     }
 
