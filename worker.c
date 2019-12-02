@@ -103,6 +103,7 @@ int main (int argc, char * argv[])
         
     }
 
+    printf("EINDE WHILE LOOOOOOOOOOOOOP");
     mq_send (mq_fd_jobs, (char *) &job, sizeof(job), 0);
 
     mq_close (mq_fd_results);
