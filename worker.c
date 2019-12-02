@@ -148,7 +148,6 @@ int main (int argc, char * argv[])
                     if (tryPsw[i] < job.ast || tryPsw[i] > job.af)
                     {
                         /* continue until we find a letter */
-                        printf("NIKS VINDEN\n");
                         continue;   
                     }
                     //if element is a letter -----------------
@@ -167,9 +166,11 @@ int main (int argc, char * argv[])
                             /* it overflows to the first char */
                             tryPsw[i] = job.ast;
 
+                            printf("final d\n");
                             /* remainder should be added to the previous */
-                            for (size_t j = i-1; i < 0; i++)
+                            for (size_t j = i-1; i < -1; i++)
                             {
+                                
                                 //if element before is also final letter
                                 if (tryPsw[j] == job.af)
                                 {   
@@ -180,16 +181,22 @@ int main (int argc, char * argv[])
                                 //if we find a non final letter
                                 else
                                 {
-                                  /* we find a place to drop the remainder */
-                                  tryPsw[j]++;
-                                  break;  
+                                  //if all letters are final except first  
+                                  if(j==0){
+                                    /* remainder goes into adding new letter */
+                                    tryPsw[i + 1] = job.ast;
+                                    break;
+                                  }
+                                  //if we find a non final letter thats not the first
+                                  else{
+                                    /* we find a place to drop the remainder */
+                                    tryPsw[j]++;
+                                    goto end;
+                                    break;
+                                  }  
                                 }
                                 
                             }
-                        //if all letters are final except first
-                        
-                        /* remainder goes into adding new letter */
-                        tryPsw[i + 1] = job.ast;
                         break;                            
                         }  
                     }       
