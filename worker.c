@@ -124,6 +124,8 @@ int main (int argc, char * argv[])
         } 
         tryPsw[1] = job.ast;
 
+        printf("SIngelton does not work so we try %s\n", tryPsw);
+        printf("This is the checkerdie check '%c'", tryPsw[2]);
         while (1)
             {
                 if (strcmp(tryPsw, finalCheck) == 0) {
