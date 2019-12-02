@@ -196,8 +196,8 @@ int main (int argc, char * argv[])
                         }  
                     }       
                 }
-                //printf("%s\n", tryPsw);
-                sleep(0.40);
+                printf("%s\n", tryPsw);
+                sleep(0.60);
             }          
     }
 
