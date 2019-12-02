@@ -27,10 +27,10 @@ static uint128_t md5_list[] =
     UINT128(0x5ca2aa845c8cd5ac,0xe6b016841f100d82),    /* 'da' */
     UINT128(0xd77d5e503ad1439f,0x585ac494268b351b),    /* 'db' */
     UINT128(0xcfcbe5bdf31116aa,0x3dcffb7e7470333e),    /* 'bdada' */
-    // UINT128(0x65ba841e01d6db77,0x33e90a5b7f9e6f80),    /* 'bbbb' */
-    // UINT128(0x4124bc0a9335c27f,0x086f24ba207a4912),    /* 'aa' */
-    // UINT128(0x523af537946b79c4,0xf8369ed39ba78605),    /* 'ad' */
-    // UINT128(0x9134669f44c1af05,0x32f613b7508283c4),    /* 'dcba' */
+    UINT128(0x65ba841e01d6db77,0x33e90a5b7f9e6f80),    /* 'bbbb' */
+    UINT128(0x4124bc0a9335c27f,0x086f24ba207a4912),    /* 'aa' */
+    UINT128(0x523af537946b79c4,0xf8369ed39ba78605),    /* 'ad' */
+    UINT128(0x9134669f44c1af05,0x32f613b7508283c4),    /* 'dcba' */
     // UINT128(0xe2fc714c4727ee93,0x95f324cd2e7f331f),    /* 'abcd' */
     // UINT128(0x980ac217c6b51e7d,0xc41040bec1edfec8),    /* 'dddddd' */
 };

@@ -189,7 +189,7 @@ int main (int argc, char * argv[])
                     }       
                 }
                 //printf("%s\n", tryPsw);
-                sleep(0.60);
+                //sleep(0.60);
             }          
     }
 
