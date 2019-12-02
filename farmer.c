@@ -105,6 +105,7 @@ int main (int argc, char * argv[])
                 }
             }
 
+            printf("past het\n");
             job.st = ALPHABET_START_CHAR;
             job.h  = md5_list[0];
             job.f  = 1;
