@@ -130,6 +130,8 @@ int main (int argc, char * argv[])
                 mq_receive (mq_fd_results, (char *) &result, sizeof(result), NULL); 
                 printf ("parent: received: %s\n, '", result.m); 
             }
+
+            printf("DONT WANT IT TO GO HEREEEEEEEEEEEEEEEEEEEEEEEEE\n");
              
             /**
              * Wait until all workers have finished working
