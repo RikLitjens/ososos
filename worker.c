@@ -148,6 +148,7 @@ int main (int argc, char * argv[])
                     if (tryPsw[i] == 0)
                     {
                         /* continue until we find a letter */
+                        printf("NIKS VINDEN\n");
                         continue;   
                     }
                     //if element is a letter -----------------
