@@ -90,7 +90,7 @@ int main (int argc, char * argv[])
         rsleep(10000000);
         //tryHash = md5s(tryPsw, sizeof(tryPsw));
 
-        printf("starts with '%c'\n", job.st);
+        printf("starts with '%c, %d'\n", job.st, job.f);
 
         strncpy(result.m, "afbouw", 6);
         if(tryHash == job.h) {

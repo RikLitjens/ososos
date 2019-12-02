@@ -108,7 +108,6 @@ int main (int argc, char * argv[])
                 printf("ja dis er nou 1\n");                
             }
 
-            printf("of gaat ie hier ergens scheef\n");
             job.st = ALPHABET_START_CHAR;
             job.h  = md5_list[0];
             job.f  = 1;
