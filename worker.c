@@ -80,10 +80,12 @@ int main (int argc, char * argv[])
     
     
     while (1) {
-        mq_receive (mq_fd_jobs, (char *) &job, 20 , NULL); //attr.mq_maxmsg
+        mq_receive (mq_fd_jobs, (char *) &job, attr.mq_maxmsg , NULL); //attr.mq_maxmsg
         if (job.f == 1) {
             break;
         }
+
+        printf("0x%llx\n", job.h);
         
         //strncpy(tryPsw, job.st, sizeof(job.st));
         //printf(tryPsw);
@@ -91,6 +93,7 @@ int main (int argc, char * argv[])
         //tryHash = md5s(tryPsw, sizeof(tryPsw));
 
         printf("starts with '%c, %d'\n", job.st, job.f);
+
 
         strncpy(result.m, "afbouw", 6);
         if(tryHash == job.h) {
