@@ -32,9 +32,12 @@ typedef struct
     // a data structure with 2 members
     // start symbol s and hash h and 
     // f, 1 if all jobs are in queue else 0
+    // alphabet start and final char
     char                       st;
     uint128_t                  h;
     int                        f;
+    char                       ast;
+    char                       af;
 } MQ_JOB;
 
 typedef struct

@@ -86,29 +86,44 @@ int main (int argc, char * argv[])
             break;
         }
         
-
         /**
          * Try different passwords beginning with st
          */
         snprintf(tryPsw, sizeof(tryPsw), "%c", job.st);
         printf("Try: %s\n", tryPsw);
-
+        
         rsleep(10000000);
-
+        
         /**
          * Hash the password we are trying and compare it
          */
-        printf("now we try hashing\n");
-        tryHash = md5s(tryPsw, strlen(tryPsw));
-
+        
         printf("starts with '%c', %d %d\n", job.st, job.f, sizeof(job));
 
-        if(tryHash == job.h) {
-            printf("Jawel hoor ze zijn gelijk tis wat\n");
-            strncpy(result.m, tryPsw, sizeof(tryPsw));
-            result.h = job.h;
-            mq_send (mq_fd_results, (char *) &result, sizeof(result), 0);
-        }
+        
+        //start character plus all final characters 
+        //(ie the final to be checked psw)
+        char finalCheck[6] = job.st;
+        for (size_t i = 0; i < 5; i++)
+            {
+                strncat(finalCheck, &job.af, 1);
+            }
+        printf(finalCheck);        
+        while (1)
+            {
+                if (strcmp(tryPsw, finalCheck) == 0) {
+                    break;
+                }
+                tryHash = md5s(tryPsw, strlen(tryPsw));
+                if(tryHash == job.h) {
+                    printf("Jawel hoor ze zijn gelijk tis wat\n");
+                    strncpy(result.m, tryPsw, sizeof(tryPsw));
+                    result.h = job.h;
+                    mq_send (mq_fd_results, (char *) &result, sizeof(result), 0);
+                    break;
+            }
+            
+        }        
         
     }
     printf("EINDEEEEEE WHILEEEEEEEEEEE LOOOOOOOOOOOOP\n");
