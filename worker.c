@@ -97,11 +97,11 @@ int main (int argc, char * argv[])
         rsleep(10000000);
 
         printf("now we try hashing\n");
-        tryHash = md5s(tryPsw, sizeof(tryPsw));
+        tryHash = md5s(tryPsw, strlen(tryPsw));
 
         printf("starts with '%c', %d %d\n", job.st, job.f, sizeof(job));
 
-        if(md5s("a", 1) == job.h) {
+        if(tryhash == job.h) {
             printf("Jawel hoor ze zijn gelijk tis wat\n");
             strncpy(result.m, tryPsw, sizeof(tryPsw));
             result.h = job.h;
