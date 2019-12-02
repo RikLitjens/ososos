@@ -105,6 +105,7 @@ int main (int argc, char * argv[])
         //(ie the final to be checked psw)
         char finalCheck[6];
         strncpy(finalCheck, job.st, 6);
+        printf(finalCheck);
         for (size_t i = 0; i < 5; i++)
             {
                 strncat(finalCheck, &job.af, 1);
