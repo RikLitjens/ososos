@@ -170,6 +170,12 @@ int main (int argc, char * argv[])
                             /* remainder should be added to the previous */
                             for (size_t j = i-1; i < -1; i++)
                             {
+                                //if all letters are final except first  
+                                if(j == 0){
+                                    /* remainder goes into adding new letter */
+                                    tryPsw[i + 1] = job.ast;
+                                    break;
+                                }
                                 
                                 //if element before is also final letter
                                 if (tryPsw[j] == job.af)
@@ -178,21 +184,13 @@ int main (int argc, char * argv[])
                                     tryPsw[j] = job.ast;
                                 }
 
-                                //if we find a non final letter
+                                //if we find a non final letter thats not the first
                                 else
                                 {
-                                  //if all letters are final except first  
-                                  if(j==0){
-                                    /* remainder goes into adding new letter */
-                                    tryPsw[i + 1] = job.ast;
-                                    break;
-                                  }
-                                  //if we find a non final letter thats not the first
-                                  else{
                                     /* we find a place to drop the remainder */
                                     tryPsw[j]++;
                                     break;
-                                  }  
+                                    
                                 }
                                 
                             }
