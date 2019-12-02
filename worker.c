@@ -124,8 +124,6 @@ int main (int argc, char * argv[])
         } 
         tryPsw[1] = job.ast;
 
-        printf("SIngelton does not work so we try %s\n", tryPsw);
-        printf("This is the checkerdie check '%c'", tryPsw[2]);
         while (1)
             {
                 if (strcmp(tryPsw, finalCheck) == 0) {
@@ -166,14 +164,11 @@ int main (int argc, char * argv[])
                             /* it overflows to the first char */
                             tryPsw[i] = job.ast;
 
-                            printf("final d to a, i=%d\n", i);
                             /* remainder should be added to the previous */
                             for (size_t j = i-1; j < -1; j--)
                             {
-                                printf("START LOOP %d\n", j);
                                 //if all letters are final except first  
                                 if(j == 0){
-                                    printf("ADD NEW LETTER\n");
                                     /* remainder goes into adding new letter */
                                     tryPsw[i + 1] = job.ast;
                                     break;
@@ -182,7 +177,6 @@ int main (int argc, char * argv[])
                                 //if element before is also final letter
                                 if (tryPsw[j] == job.af)
                                 {   
-                                    printf("FINAL BECOMES A\n");
                                     /* more overflow */
                                     tryPsw[j] = job.ast;
                                 }
@@ -202,7 +196,7 @@ int main (int argc, char * argv[])
                         }  
                     }       
                 }
-                printf("%s\n", tryPsw);
+                //printf("%s\n", tryPsw);
                 sleep(0.40);
             }          
     }
