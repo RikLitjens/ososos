@@ -85,11 +85,13 @@ int main (int argc, char * argv[])
         if (job.f == 1) {
             break;
         }
+        
 
         /**
          * Try different passwords beginning with st
-         */ ]
-        snprintf(tryPsw, sizeof(tryPsw), "%c", job.st)
+         */
+        printf("dit doet iet zekereokniemeer\n");
+        snprintf(tryPsw, sizeof(tryPsw), "%c", job.st);
         printf("Try: %s", tryPsw);
 
         rsleep(10000000);
