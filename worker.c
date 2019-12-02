@@ -80,7 +80,7 @@ int main (int argc, char * argv[])
     
     
     while (1) {
-        mq_receive (mq_fd_jobs, (char *) &job, 20 , NULL); //attr.mq_maxmsg
+        mq_receive (mq_fd_jobs, (char *) &job, 60 , NULL); //attr.mq_maxmsg
         if (job.f == 1) {
             break;
         }
