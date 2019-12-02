@@ -104,13 +104,12 @@ int main (int argc, char * argv[])
         //start character plus all final characters 
         //(ie the final to be checked psw)
         char finalCheck[6];
-        strncpy(finalCheck, job.st, 6);
-        printf(finalCheck);
+        finalCheck[0] = job.st;
         for (size_t i = 0; i < 5; i++)
             {
-                strncat(finalCheck, &job.af, 1);
+                finalCheck[1+i] = job.af;
             }
-        printf(finalCheck);        
+        printf("%s\n", finalCheck);        
         while (1)
             {
                 if (strcmp(tryPsw, finalCheck) == 0) {
