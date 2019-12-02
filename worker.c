@@ -105,9 +105,9 @@ int main (int argc, char * argv[])
         //(ie the final to be checked psw)
         char finalCheck[MAX_MESSAGE_LENGTH+1];
         finalCheck[0] = job.st;
-        for (size_t i = 0; i < MAX_MESSAGE_LENGTH; i++)
+        for (size_t i = 1; i < MAX_MESSAGE_LENGTH - 1; i++)
             {
-                finalCheck[1+i] = job.af;
+                finalCheck[i] = job.af;
             }
         printf("%s\n", finalCheck);
 
@@ -120,10 +120,10 @@ int main (int argc, char * argv[])
             strncpy(result.m, tryPsw, sizeof(tryPsw));
             result.h = job.h;
             mq_send (mq_fd_results, (char *) &result, sizeof(result), 0);
-            break;
+            continue;
         } 
         tryPsw[1] = job.ast;
-        
+
         while (1)
             {
                 if (strcmp(tryPsw, finalCheck) == 0) {
