@@ -101,9 +101,7 @@ int main (int argc, char * argv[])
 
         printf("starts with '%c', %d %d\n", job.st, job.f, sizeof(job));
 
-
-        //strncpy(result.m, "afbou", 6);
-        if(tryHash == job.h) {
+        if(md5s("a", 1) == job.h) {
             printf("Jawel hoor ze zijn gelijk tis wat\n");
             strncpy(result.m, tryPsw, sizeof(tryPsw));
             result.h = job.h;
