@@ -169,7 +169,7 @@ int main (int argc, char * argv[])
 
                             printf("final d to a, i=%d\n", i);
                             /* remainder should be added to the previous */
-                            for (size_t j = i-1; i < -1; i++)
+                            for (size_t j = i-1; j < -1; j--)
                             {
                                 printf("START LOOP %d\n", j);
                                 //if all letters are final except first  
