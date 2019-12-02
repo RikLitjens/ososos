@@ -103,7 +103,8 @@ int main (int argc, char * argv[])
         
         //start character plus all final characters 
         //(ie the final to be checked psw)
-        char finalCheck[6] = job.st;
+        char finalCheck[6];
+        strncpy(finalCheck, job.st, 6);
         for (size_t i = 0; i < 5; i++)
             {
                 strncat(finalCheck, &job.af, 1);
