@@ -92,7 +92,7 @@ int main (int argc, char * argv[])
         snprintf(tryPsw, sizeof(tryPsw), "%c", job.st);
         printf("Try: %s\n", tryPsw);
         
-        rsleep(10000000);
+        rsleep(100000);
         
         /**
          * Hash the password we are trying and compare it
@@ -103,13 +103,17 @@ int main (int argc, char * argv[])
         
         //start character plus all final characters 
         //(ie the final to be checked psw)
-        char finalCheck[6];
+        char finalCheck[MAX_MESSAGE_LENGTH+1];
         finalCheck[0] = job.st;
-        for (size_t i = 0; i < 5; i++)
+        for (size_t i = 0; i < MAX_MESSAGE_LENGTH; i++)
             {
                 finalCheck[1+i] = job.af;
             }
-        printf("%s\n", finalCheck);        
+        printf("%s\n", finalCheck);
+
+        /**
+         * Loop over all possible messages and check hash
+         */         
         while (1)
             {
                 if (strcmp(tryPsw, finalCheck) == 0) {
@@ -122,12 +126,70 @@ int main (int argc, char * argv[])
                     result.h = job.h;
                     mq_send (mq_fd_results, (char *) &result, sizeof(result), 0);
                     break;
-                }      
-                tryPsw[1] = job.af;
-                tryPsw[2] = job.af;
+                } 
+                //singleton fails so we add a letter to it
+                tryPsw[1] = job.ast;
+                /**
+                 * Start at last element of possible password and loop forward
+                 */ 
+                for (size_t i = MAX_MESSAGE_LENGTH-1; i > 0; i--)
+                {
+                    //if element is not initialized ----------
+                    if (tryPsw[i] == 0)
+                    {
+                        /* continue until we find a letter */
+                        continue;   
+                    }
+                    //if element is a letter -----------------
+                    else
+                    {
+                        // if element is not the final letter
+                        if (tryPsw[i] != job.af)
+                        {
+                          /* we increment */
+                          tryPsw[i]++;
+                          break;
+                        } 
+                        //if element is the final letter
+                        else
+                        {   
+                            /* it overflows to the first char */
+                            tryPsw[i] = job.ast;
+
+                            /* remainder should be added to the previous */
+                            for (size_t j = i-1; i < 0; i++)
+                            {
+                                //if element before is also final letter
+                                if (tryPsw[j] == job.af)
+                                {   
+                                    /* more overflow */
+                                    tryPsw[j] = job.ast;
+                                }
+
+                                //if we find a non final letter
+                                else
+                                {
+                                  /* we find a place to drop the remainder */
+                                  tryPsw[j]++;
+                                  break;  
+                                }
+                                
+                            }
+                        //if all letters are final except first
+                        
+                        /* remainder goes into adding new letter */
+                        tryPsw[i + 1] = job.ast;
+                        break;                            
+                        }  
+                    }       
+                }
                 printf("%s\n", tryPsw);
             }          
     }
+
+    /**
+     * All jobs are finished, so round up
+     */ 
     printf("EINDEEEEEE WHILEEEEEEEEEEE LOOOOOOOOOOOOP\n");
 
     mq_send (mq_fd_jobs, (char *) &job, sizeof(job), 0);
