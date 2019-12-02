@@ -191,7 +191,6 @@ int main (int argc, char * argv[])
                                   else{
                                     /* we find a place to drop the remainder */
                                     tryPsw[j]++;
-                                    goto end;
                                     break;
                                   }  
                                 }
