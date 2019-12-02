@@ -113,7 +113,17 @@ int main (int argc, char * argv[])
 
         /**
          * Loop over all possible messages and check hash
-         */         
+         */ 
+        tryHash = md5s(tryPsw, strlen(tryPsw));
+        if(tryHash == job.h) {
+            printf("Jawel hoor ze zijn gelijk tis wat\n");
+            strncpy(result.m, tryPsw, sizeof(tryPsw));
+            result.h = job.h;
+            mq_send (mq_fd_results, (char *) &result, sizeof(result), 0);
+            break;
+        } 
+        tryPsw[1] = job.ast;
+        
         while (1)
             {
                 if (strcmp(tryPsw, finalCheck) == 0) {
@@ -127,8 +137,6 @@ int main (int argc, char * argv[])
                     mq_send (mq_fd_results, (char *) &result, sizeof(result), 0);
                     break;
                 } 
-                //singleton fails so we add a letter to it
-                tryPsw[1] = job.ast;
                 /**
                  * Start at last element of possible password and loop forward
                  */ 
@@ -184,6 +192,7 @@ int main (int argc, char * argv[])
                     }       
                 }
                 printf("%s\n", tryPsw);
+                sleep(1);
             }          
     }
 
