@@ -80,9 +80,6 @@ int main (int argc, char * argv[])
     
     
     while (1) {
-
-        printf("RECEIVING NOW\n");
-        getattr(mq_fd_jobs);
         mq_receive (mq_fd_jobs, (char *) &job, attr.mq_maxmsg , NULL); //attr.mq_maxmsg
         if (job.f == 1) {
             break;
@@ -93,21 +90,19 @@ int main (int argc, char * argv[])
         rsleep(10000000);
         //tryHash = md5s(tryPsw, sizeof(tryPsw));
 
-        printf("starts with '%c', %d\n", job.st, job.f);
-        printf("0x%llx\n", job.h);
+        printf("starts with '%c', %d'\n", job.st, job.f);
 
 
-        strncpy(result.m, "afbou", 6);
-        // if(tryHash == job.h) {
-        //     strncpy(result.m, tryPsw, sizeof(tryPsw));
-        //     result.h = job.h;
-        //     mq_send (mq_fd_results, (char *) &result, attr.mq_maxmsg, 0);
-        // }
+        strncpy(result.m, "afbouw", 6);
+        if(tryHash == job.h) {
+            strncpy(result.m, tryPsw, sizeof(tryPsw));
+            result.h = job.h;
+            mq_send (mq_fd_results, (char *) &result, attr.mq_maxmsg, 0);
+        }
         
     }
 
-    printf("EINDE WHILE LOOOOOOOOOOOOOP");
-    mq_send (mq_fd_jobs, (char *) &job, sizeof(job), 0);
+    mq_send (mq_fd_jobs, (char *) &job, attr.mq_maxmsg, 0);
 
     mq_close (mq_fd_results);
     mq_close (mq_fd_jobs);
