@@ -123,17 +123,11 @@ int main (int argc, char * argv[])
             /**
              * Evaluate work done by the workers
              */
-
-            getattr(mq_fd_results);
-                mq_receive (mq_fd_results, (char *) &result, sizeof(result), NULL);
-                printf ("parent: receiving...\n");
-                printf ("parent: received: %s\n, '", result.m); 
-
             for (size_t i = 0; i < MD5_LIST_NROF; i++)
             {
-                getattr(mq_fd_results);
-                mq_receive (mq_fd_results, (char *) &result, sizeof(result), NULL);
                 printf ("parent: receiving...\n");
+                getattr(mq_fd_results);
+                mq_receive (mq_fd_results, (char *) &result, sizeof(result), NULL); 
                 printf ("parent: received: %s\n, '", result.m); 
             }
              
