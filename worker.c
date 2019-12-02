@@ -90,13 +90,13 @@ int main (int argc, char * argv[])
         /**
          * Try different passwords beginning with st
          */
-        printf("dit doet iet zekereokniemeer\n");
+
         snprintf(tryPsw, sizeof(tryPsw), "%c", job.st);
-        printf("Try: %s", tryPsw);
+        printf("Try: %s\n", tryPsw);
 
         rsleep(10000000);
 
-        printf("now we try hashing");
+        printf("now we try hashing\n");
         tryHash = md5s(tryPsw, sizeof(tryPsw));
 
         printf("starts with '%c', %d %d\n", job.st, job.f, sizeof(job));
