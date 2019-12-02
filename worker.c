@@ -84,8 +84,6 @@ int main (int argc, char * argv[])
         if (job.f == 1) {
             break;
         }
-
-        printf("0x%llx\n", job.h);
         
         //strncpy(tryPsw, job.st, sizeof(job.st));
         //printf(tryPsw);
