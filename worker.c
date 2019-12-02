@@ -102,6 +102,7 @@ int main (int argc, char * argv[])
         }
         
     }
+    printf("EINDEEEEEE WHILEEEEEEEEEEE LOOOOOOOOOOOOP\n");
 
     mq_send (mq_fd_jobs, (char *) &job, attr.mq_maxmsg, 0);
 
