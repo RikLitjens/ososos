@@ -148,6 +148,7 @@ int main (int argc, char * argv[])
                     if (tryPsw[i] < job.ast || tryPsw[i] > job.af)
                     {
                         /* continue until we find a letter */
+                        print("EMTPY SO SKIP\n");
                         continue;   
                     }
                     //if element is a letter -----------------
@@ -166,12 +167,14 @@ int main (int argc, char * argv[])
                             /* it overflows to the first char */
                             tryPsw[i] = job.ast;
 
-                            printf("final d\n");
+                            printf("final d to a, i=%d\n", i);
                             /* remainder should be added to the previous */
                             for (size_t j = i-1; i < -1; i++)
                             {
+                                printf("START LOOP %d\n", j);
                                 //if all letters are final except first  
                                 if(j == 0){
+                                    printf("ADD NEW LETTER\n");
                                     /* remainder goes into adding new letter */
                                     tryPsw[i + 1] = job.ast;
                                     break;
@@ -180,6 +183,7 @@ int main (int argc, char * argv[])
                                 //if element before is also final letter
                                 if (tryPsw[j] == job.af)
                                 {   
+                                    printf("FINAL BECOMES A\n");
                                     /* more overflow */
                                     tryPsw[j] = job.ast;
                                 }
@@ -188,6 +192,7 @@ int main (int argc, char * argv[])
                                 else
                                 {
                                     /* we find a place to drop the remainder */
+
                                     tryPsw[j]++;
                                     break;
                                     
