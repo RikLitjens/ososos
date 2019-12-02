@@ -86,17 +86,21 @@ int main (int argc, char * argv[])
             break;
         }
 
-        
-        //strncpy(tryPsw, job.st, sizeof(job.st));
-        //printf(tryPsw);
+        /**
+         * Try different passwords beginning with st
+         */ 
+        strncpy(tryPsw, job.st, sizeof(job.st));
+        printf("%s", tryPsw);
+
         rsleep(10000000);
-        //tryHash = md5s(tryPsw, sizeof(tryPsw));
+        tryHash = md5s(tryPsw, sizeof(tryPsw));
 
         printf("starts with '%c', %d %d\n", job.st, job.f, sizeof(job));
 
 
-        strncpy(result.m, "afbouw", 6);
+        //strncpy(result.m, "afbou", 6);
         if(tryHash == job.h) {
+            printf("Jawel hoor ze zijn gelijk tis wat\n");
             strncpy(result.m, tryPsw, sizeof(tryPsw));
             result.h = job.h;
             mq_send (mq_fd_results, (char *) &result, sizeof(result), 0);
