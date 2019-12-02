@@ -45,7 +45,7 @@ typedef struct
     // a data structure with 2 members
     // result --only if succesfull 
     // msg m corresponding to hash h 
-    char                    m[7];
+    char                    m[MAX_MESSAGE_LENGTH+2];
     uint128_t               h;
 } MQ_RESULT;
 

@@ -66,7 +66,7 @@ int main (int argc, char * argv[])
     struct mq_attr      attr;
     int                 rtn = mq_getattr (mq_fd_jobs, &attr); 
     uint128_t           tryHash;
-    char                tryPsw[7];
+    char                tryPsw[MAX_MESSAGE_LENGTH+2];
 
 
     printf("starting while loop\n");
@@ -103,7 +103,7 @@ int main (int argc, char * argv[])
         
         //start character plus all final characters 
         //(ie the final to be checked psw)
-        char finalCheck[MAX_MESSAGE_LENGTH+1];
+        char finalCheck[MAX_MESSAGE_LENGTH+2];
         finalCheck[0] = job.st;
         for (size_t i = 1; i < MAX_MESSAGE_LENGTH; i++)
             {
