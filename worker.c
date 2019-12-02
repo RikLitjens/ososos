@@ -83,7 +83,7 @@ int main (int argc, char * argv[])
 
         printf("RECEIVING NOW\n");
         getattr(mq_fd_jobs);
-        mq_receive (mq_fd_jobs, (char *) &job, 100 , NULL); //attr.mq_maxmsg
+        mq_receive (mq_fd_jobs, (char *) &job, attr.mq_maxmsg , NULL); //attr.mq_maxmsg
         if (job.f == 1) {
             break;
         }
