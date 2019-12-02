@@ -103,7 +103,7 @@ int main (int argc, char * argv[])
                     job.f  = 0;
                     printf ("parent: sending... '%c', %d %d\n", job.st, job.f, sizeof(job));
                     printf("0x%llx\n", job.h);
-                    mq_send (mq_fd_jobs, (char *) &job, sizeof(job), 0);
+                    mq_send (mq_fd_jobs, (char *) &job, 100, 0);
                 }
                 printf("ja dis er nou 1\n");                
             }
@@ -111,7 +111,7 @@ int main (int argc, char * argv[])
             job.st = ALPHABET_START_CHAR;
             job.h  = md5_list[0];
             job.f  = 1;
-            mq_send (mq_fd_jobs, (char *) &job, sizeof(job), 0);
+            mq_send (mq_fd_jobs, (char *) &job, 100, 0);
 
             printf("DONE SENDING STUFF FROM PARENT-------------------%d\n",job.f);
 

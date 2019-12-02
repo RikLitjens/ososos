@@ -80,7 +80,9 @@ int main (int argc, char * argv[])
     
     
     while (1) {
-        mq_receive (mq_fd_jobs, (char *) &job, 60 , NULL); //attr.mq_maxmsg
+
+        printf("RECEIVING NOW\n");
+        mq_receive (mq_fd_jobs, (char *) &job, 100 , NULL); //attr.mq_maxmsg
         if (job.f == 1) {
             break;
         }
