@@ -89,11 +89,8 @@ int main (int argc, char * argv[])
         /**
          * Try different passwords beginning with st
          */
-        tryPsw[0] = job.st;
-        for (size_t i = 1; i < MAX_MESSAGE_LENGTH; i++)
-            {
-                tryPsw[i] = '[';
-            }
+        memset(tryPsw, 0, sizeof(tryPsw));
+        snprintf(tryPsw, sizeof(tryPsw), "%c", job.st);
         printf("Try: %s\n", tryPsw);
         
         rsleep(100000);
