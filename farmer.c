@@ -103,7 +103,7 @@ int main (int argc, char * argv[])
                     job.f  = 0;
                     printf ("parent: sending... '%c'\n", job.st);
                     printf("0x%llx\n", job.h);
-                    mq_send (mq_fd_jobs, (char *) &job, 40, 0);
+                    mq_send (mq_fd_jobs, (char *) &job, 100, 0);
                 }
                 printf("ja dis er nou 1\n");                
             }
