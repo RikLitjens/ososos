@@ -84,13 +84,14 @@ int main (int argc, char * argv[])
         if (job.f == 1) {
             break;
         }
+
         
         //strncpy(tryPsw, job.st, sizeof(job.st));
         //printf(tryPsw);
         rsleep(10000000);
         //tryHash = md5s(tryPsw, sizeof(tryPsw));
 
-        printf("starts with '%c', %d'\n", job.st, job.f);
+        printf("starts with '%c, %d'\n", job.st, job.f);
 
 
         strncpy(result.m, "afbouw", 6);
