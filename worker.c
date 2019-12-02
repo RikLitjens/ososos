@@ -145,7 +145,7 @@ int main (int argc, char * argv[])
                 for (size_t i = MAX_MESSAGE_LENGTH-1; i > 0; i--)
                 {
                     //if element is not initialized ----------
-                    if (tryPsw[i] == 0)
+                    if (tryPsw[i] < job.ast || tryPsw[i] > job.af)
                     {
                         /* continue until we find a letter */
                         printf("NIKS VINDEN\n");
