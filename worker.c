@@ -105,7 +105,7 @@ int main (int argc, char * argv[])
         //(ie the final to be checked psw)
         char finalCheck[MAX_MESSAGE_LENGTH+1];
         finalCheck[0] = job.st;
-        for (size_t i = 1; i < MAX_MESSAGE_LENGTH - 1; i++)
+        for (size_t i = 1; i < MAX_MESSAGE_LENGTH; i++)
             {
                 finalCheck[i] = job.af;
             }
