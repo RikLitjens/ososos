@@ -69,7 +69,6 @@ int main (int argc, char * argv[])
     char                tryPsw[MAX_MESSAGE_LENGTH+2];
 
 
-    printf("starting while loop\n");
     if (argc > 1 ) {
         mq_fd_jobs    = mq_open (argv[1], O_RDWR);
         mq_fd_results = mq_open (argv[2], O_WRONLY);
@@ -110,14 +109,12 @@ int main (int argc, char * argv[])
             {
                 finalCheck[i] = job.af;
             }
-        printf("%s\n", finalCheck);
 
         /**
          * Loop over all possible messages and check hash
          */ 
         tryHash = md5s(tryPsw, strlen(tryPsw));
         if(tryHash == job.h) {
-            printf("Jawel hoor ze zijn gelijk tis wat\n");
             strncpy(result.m, tryPsw, sizeof(tryPsw));
             result.h = job.h;
             mq_send (mq_fd_results, (char *) &result, sizeof(result), 0);
@@ -132,7 +129,6 @@ int main (int argc, char * argv[])
                 }
                 tryHash = md5s(tryPsw, strlen(tryPsw));
                 if(tryHash == job.h) {
-                    printf("Jawel hoor ze zijn gelijk tis wat\n");
                     strncpy(result.m, tryPsw, sizeof(tryPsw));
                     result.h = job.h;
                     mq_send (mq_fd_results, (char *) &result, sizeof(result), 0);
@@ -197,7 +193,7 @@ int main (int argc, char * argv[])
                         }  
                     }       
                 }
-                printf("%s\n", tryPsw);
+                //printf("%s\n", tryPsw);
                 sleep(0.60);
             }          
     }
@@ -205,13 +201,10 @@ int main (int argc, char * argv[])
     /**
      * All jobs are finished, so round up
      */ 
-    printf("EINDEEEEEE WHILEEEEEEEEEEE LOOOOOOOOOOOOP\n");
-
     mq_send (mq_fd_jobs, (char *) &job, sizeof(job), 0);
 
     mq_close (mq_fd_results);
     mq_close (mq_fd_jobs);
-    printf("bye bye\n");
     return (0);
 }
 

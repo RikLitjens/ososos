@@ -79,13 +79,11 @@ int main (int argc, char * argv[])
 
 
 
-    printf ("papa %d has been started\n\n", getpid());
     //  * create the child processes (see process_test() and message_queue_test())
             for(int i = 0; i < NROF_WORKERS ; i++) // loop will run n times (n=5) 
                 { 
                     if(fork() == 0) 
                     { 
-                        printf("[son] pid %d from [parent] pid %d\n", getpid(), getppid());
                         static char *argv[]={"worker", mq_name_jobs, mq_name_results, NULL}; 
                         execv("./worker", argv);
 
@@ -105,11 +103,8 @@ int main (int argc, char * argv[])
                     job.f  = 0;
                     job.ast = ALPHABET_START_CHAR;
                     job.af  = ALPHABET_END_CHAR;
-                    printf ("parent: sending... '%c' %d %d\n", job.st, job.f, sizeof(job));
-                    printf("0x%llx\n", job.h);
                     mq_send (mq_fd_jobs, (char *) &job, sizeof(job), 0);
                 }
-                printf("ja dis er nou 1\n");                
             }
 
             job.st = ALPHABET_START_CHAR;
@@ -117,7 +112,6 @@ int main (int argc, char * argv[])
             job.f  = 1;
             mq_send (mq_fd_jobs, (char *) &job, sizeof(job), 0);
 
-            printf("DONE SENDING STUFF FROM PARENT-------------------\n");
 
 
             /**
@@ -127,11 +121,10 @@ int main (int argc, char * argv[])
             {
                 printf ("parent: receiving...\n");
                 getattr(mq_fd_results);
-                mq_receive (mq_fd_results, (char *) &result, sizeof(result), NULL); 
+                mq_receive (mq_fd_results, (char *) &result, sizeof(result), NULL);
+
                 printf ("parent: received: %s\n, '", result.m); 
             }
-
-            printf("DONT WANT IT TO GO HEREEEEEEEEEEEEEEEEEEEEEEEEE\n");
              
             /**
              * Wait until all workers have finished working
