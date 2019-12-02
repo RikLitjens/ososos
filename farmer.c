@@ -64,7 +64,7 @@ int main (int argc, char * argv[])
     struct mq_attr      attr;
 
     attr.mq_maxmsg  = MQ_MAX_MESSAGES;
-    attr.mq_msgsize = MAX_MESSAGE_LENGTH;
+    attr.mq_msgsize = sizeof(job);
     
     sprintf (mq_name_jobs, "/mq_request_%s_%d", STUDENT_NAME, getpid());
     sprintf (mq_name_results, "/mq_response_%s_%d", STUDENT_NAME, getpid());
@@ -103,7 +103,7 @@ int main (int argc, char * argv[])
                     job.f  = 1;
                     printf ("parent: sending... '%c' %d %d\n", job.st, job.f, sizeof(job));
                     printf("0x%llx\n", job.h);
-                    mq_send (mq_fd_jobs, (char *) &job, MAX_MESSAGE_LENGTH, 0);
+                    mq_send (mq_fd_jobs, (char *) &job, sizeof(job), 0);
                 }
                 printf("ja dis er nou 1\n");                
             }
