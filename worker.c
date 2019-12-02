@@ -203,7 +203,7 @@ int main (int argc, char * argv[])
                     }       
                 }
                 printf("%s\n", tryPsw);
-                sleep(0.20);
+                sleep(0.40);
             }          
     }
 
