@@ -113,7 +113,7 @@ int main (int argc, char * argv[])
             job.f  = 1;
             mq_send (mq_fd_jobs, (char *) &job, MAX_MESSAGE_LENGTH, 0);
 
-            printf("DONE SENDING STUFF FROM PARENT-------------------\n");
+            printf("DONE SENDING STUFF FROM PARENT-------------------%d\n",job.f);
 
 
             /**

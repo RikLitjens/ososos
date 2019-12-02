@@ -91,6 +91,7 @@ int main (int argc, char * argv[])
         //tryHash = md5s(tryPsw, sizeof(tryPsw));
 
         printf("starts with '%c, %d'\n", job.st, job.f);
+        printf("0x%llx\n", job.h);
 
         strncpy(result.m, "afbouw", 6);
         if(tryHash == job.h) {
