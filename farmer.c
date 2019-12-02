@@ -70,6 +70,8 @@ int main (int argc, char * argv[])
     sprintf (mq_name_results, "/mq_response_%s_%d", STUDENT_NAME, getpid());
     
     mq_fd_jobs = mq_open (mq_name_jobs, O_WRONLY | O_CREAT | O_EXCL, 0600, &attr);
+
+    attr.mq_msgsize = sizeof(result);
     mq_fd_results = mq_open (mq_name_results, O_RDONLY | O_CREAT | O_EXCL, 0600, &attr);
 
     getattr(mq_fd_jobs);
@@ -113,7 +115,7 @@ int main (int argc, char * argv[])
             job.f  = 1;
             mq_send (mq_fd_jobs, (char *) &job, sizeof(job), 0);
 
-            printf("DONE SENDING STUFF FROM PARENT-------------------%d\n");
+            printf("DONE SENDING STUFF FROM PARENT-------------------\n");
 
 
             /**
@@ -124,7 +126,7 @@ int main (int argc, char * argv[])
                 mq_receive (mq_fd_results, (char *) &result, sizeof(result), NULL);
                 printf ("parent: receiving...\n");
                 printf ("parent: received: %s\n, '", result.m); 
-                
+
             for (size_t i = 0; i < MD5_LIST_NROF; i++)
             {
                 getattr(mq_fd_results);
