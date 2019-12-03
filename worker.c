@@ -84,6 +84,8 @@ int main (int argc, char * argv[])
             break;
         }
         
+        printf("iets iets toch maar testen %c\n", job.st);
+
         /**
          * Try different passwords beginning with st
          */
