@@ -104,10 +104,9 @@ int main (int argc, char * argv[])
                     mq_send (mq_fd_jobs, (char *) &job, sizeof(job), 0);
                 }
 
-                printf ("parent: receiving...\n");
                 mq_receive (mq_fd_results, (char *) &result, sizeof(result), NULL);
 
-                printf ("parent: received: %s\n, '", result.m);
+                printf ("%s\n",result.m);
             }
 
             job.st = ALPHABET_START_CHAR;
