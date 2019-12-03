@@ -102,7 +102,6 @@ int main (int argc, char * argv[])
                     job.ast = ALPHABET_START_CHAR;
                     job.af  = ALPHABET_END_CHAR;
                     mq_send (mq_fd_jobs, (char *) &job, sizeof(job), 0);
-                    printf("hash nummer %d, met lettertje %d", i,j);
                 }
 
                 printf ("parent: receiving...\n");
@@ -111,7 +110,6 @@ int main (int argc, char * argv[])
                 printf ("parent: received: %s\n, '", result.m);
             }
 
-            printf("past het\n");
             job.st = ALPHABET_START_CHAR;
             job.h  = md5_list[0];
             job.f  = 1;
