@@ -87,25 +87,20 @@ int main (int argc, char * argv[])
                     mq_send (mq_fd_jobs, (char *) &job, sizeof(job), 0);
                 }
 
-                mq_receive (mq_fd_results, (char *) &result, sizeof(result), NULL);
 
-                printf ("'%s'\n",result.m);
+                while (mq_receive (mq_fd_results, (char *) &result, sizeof(result), O_NONBLOCK ) != -1){
+                    printf ("'%s'\n",result.m);
+                }     
             }
 
+            /**
+             * Insert final queue message 
+             * so workers know all jobs are done.
+             */ 
             job.st = ALPHABET_START_CHAR;
             job.h  = md5_list[0];
             job.f  = 1;
             mq_send (mq_fd_jobs, (char *) &job, sizeof(job), 0);
-
-
-
-            // /**
-            //  * Evaluate work done by the workers
-            //  */
-            // for (size_t i = 0; i < MD5_LIST_NROF; i++)
-            // {
-                 
-            // }
              
             /**
              * Wait until all workers have finished working
@@ -120,14 +115,7 @@ int main (int argc, char * argv[])
             mq_close (mq_fd_jobs);
             mq_unlink (mq_name_jobs);
             mq_unlink (mq_name_results);   
-
-    //  * do the farming
-    //  * wait until the chilren have been stopped (see process_test())
-    //  * clean up the message queues (see message_queue_test())
-
-    // Important notice: make sure that the names of the message queues contain your
-    // student name and the process id (to ensure uniqueness during testing)
-    
+   
     return (0);
 }
 
