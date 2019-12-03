@@ -31,8 +31,8 @@ static uint128_t md5_list[] =
     UINT128(0x4124bc0a9335c27f,0x086f24ba207a4912),    /* 'aa' */
     UINT128(0x523af537946b79c4,0xf8369ed39ba78605),    /* 'ad' */
     UINT128(0x9134669f44c1af05,0x32f613b7508283c4),    /* 'dcba' */
-    // UINT128(0xe2fc714c4727ee93,0x95f324cd2e7f331f),    /* 'abcd' */
-    // UINT128(0x980ac217c6b51e7d,0xc41040bec1edfec8),    /* 'dddddd' */
+    UINT128(0xe2fc714c4727ee93,0x95f324cd2e7f331f),    /* 'abcd' */
+    UINT128(0x980ac217c6b51e7d,0xc41040bec1edfec8),    /* 'dddddd' */
 };
 
 
