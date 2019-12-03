@@ -119,9 +119,7 @@ int main (int argc, char * argv[])
 
         while (1)
             {
-                if (strcmp(tryPsw, finalCheck) == 0) {
-                    break;
-                }
+                
                 tryHash = md5s(tryPsw, strlen(tryPsw));
                 if(tryHash == job.h) {
                     strncpy(result.m, tryPsw, sizeof(tryPsw));
@@ -129,6 +127,9 @@ int main (int argc, char * argv[])
                     mq_send (mq_fd_results, (char *) &result, sizeof(result), 0);
                     break;
                 } 
+                if (strcmp(tryPsw, finalCheck) == 0) {
+                    break;
+                }
                 /**
                  * Start at last element of possible password and loop forward
                  */ 
