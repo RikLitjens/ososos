@@ -3,7 +3,8 @@
  * Interprocess Communication
  *
  * Contains definitions which are commonly used by the farmer and the workers
- *
+ * Rik litjens, 1317059
+ * Roel
  */
 
 #ifndef COMMON_H

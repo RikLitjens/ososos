@@ -3,7 +3,7 @@
  * Interprocess Communication
  *
  * Rik Litjens (1317059)
- * STUDENT_NAME_2 (STUDENT_NR_2)
+ * Roel (STUDENT_NR_2)
  *
  * Grading:
  * Students who hand in clean code that fully satisfies the minimum requirements will get an 8. 
@@ -27,23 +27,6 @@
 
 static void rsleep (int t);
 
-static void 
-getattr (mqd_t mq_fd)
-{
-    struct mq_attr      attr;
-    int                 rtnval;
-    
-    rtnval = mq_getattr (mq_fd, &attr);
-    if (rtnval == -1)
-    {
-        perror ("mq_getattr() failed");
-        exit (1);
-    }
-    fprintf (stderr, "%d: mqdes=%d max=%ld size=%ld nrof=%ld\n",
-                getpid(), 
-                mq_fd, attr.mq_maxmsg, attr.mq_msgsize, attr.mq_curmsgs);
-}
-
 int main (int argc, char * argv[])
 {
     // TODO:
@@ -63,8 +46,6 @@ int main (int argc, char * argv[])
     mqd_t               mq_fd_results;
     MQ_JOB              job;
     MQ_RESULT           result;
-    struct mq_attr      attr;
-    int                 rtn = mq_getattr (mq_fd_jobs, &attr); 
     uint128_t           tryHash;
     char                tryPsw[MAX_MESSAGE_LENGTH+2];
 

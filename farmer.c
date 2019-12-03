@@ -3,7 +3,7 @@
  * Interprocess Communication
  *
  * Rik Litjens (1317059)
- * STUDENT_NAME_2 (STUDENT_NR_2)
+ * Roel (STUDENT_NR_2)
  *
  * Grading:
  * Students who hand in clean code that fully satisfies the minimum requirements will get an 8. 
@@ -26,22 +26,6 @@
 #include "settings.h"
 #include "common.h"
 
-static void 
-getattr (mqd_t mq_fd)
-{
-    struct mq_attr      attr;
-    int                 rtnval;
-    
-    rtnval = mq_getattr (mq_fd, &attr);
-    if (rtnval == -1)
-    {
-        perror ("mq_getattr() failed");
-        exit (1);
-    }
-    fprintf (stderr, "%d: mqdes=%d max=%ld size=%ld nrof=%ld\n",
-                getpid(), 
-                mq_fd, attr.mq_maxmsg, attr.mq_msgsize, attr.mq_curmsgs);
-}
 
 int main (int argc, char * argv[])
 {
@@ -56,7 +40,6 @@ int main (int argc, char * argv[])
      * Creating the message queues for sender jobs to workers
      * and for receiving information from workers
      */
-    pid_t               processID;      /* Process ID from fork() */
     mqd_t               mq_fd_jobs;
     mqd_t               mq_fd_results;
     MQ_JOB  job;
