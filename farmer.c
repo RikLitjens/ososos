@@ -87,10 +87,9 @@ int main (int argc, char * argv[])
                     mq_send (mq_fd_jobs, (char *) &job, sizeof(job), 0);
                 }
 
+                mq_receive (mq_fd_results, (char *) &result, sizeof(result), NULL);
 
-                while (mq_receive (mq_fd_results, (char *) &result, sizeof(result), O_NONBLOCK ) != -1){
-                    printf ("'%s'\n",result.m);
-                }     
+                printf ("'%s'\n",result.m);
             }
 
             /**
