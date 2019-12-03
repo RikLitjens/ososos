@@ -92,7 +92,6 @@ int main (int argc, char * argv[])
         tryHash = md5s(tryPsw, strlen(tryPsw));
         if(tryHash == job.h) {
             strncpy(result.m, tryPsw, sizeof(tryPsw));
-            result.h = job.h;
             mq_send (mq_fd_results, (char *) &result, sizeof(result), 0);
             continue;
         } 
@@ -104,7 +103,6 @@ int main (int argc, char * argv[])
                 tryHash = md5s(tryPsw, strlen(tryPsw));
                 if(tryHash == job.h) {
                     strncpy(result.m, tryPsw, sizeof(tryPsw));
-                    result.h = job.h;
                     mq_send (mq_fd_results, (char *) &result, sizeof(result), 0);
                     break;
                 } 

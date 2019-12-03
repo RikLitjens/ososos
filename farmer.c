@@ -89,7 +89,7 @@ int main (int argc, char * argv[])
 
                 mq_receive (mq_fd_results, (char *) &result, sizeof(result), NULL);
 
-                printf ("%s\n",result.m);
+                printf ("'%s'\n",result.m);
             }
 
             job.st = ALPHABET_START_CHAR;
