@@ -90,7 +90,7 @@ int main (int argc, char * argv[])
         memset(tryPsw, 0, sizeof(tryPsw));
         snprintf(tryPsw, sizeof(tryPsw), "%c", job.st);
         
-        rsleep(100000);
+        rsleep(10000);
         
         /**
          * Hash the password we are trying and compare it
