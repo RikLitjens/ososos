@@ -102,7 +102,7 @@ int main (int argc, char * argv[])
                     job.ast = ALPHABET_START_CHAR;
                     job.af  = ALPHABET_END_CHAR;
                     mq_send (mq_fd_jobs, (char *) &job, sizeof(job), 0);
-                    print("hash nummer %d, met lettertje %d", i,j);
+                    printf("hash nummer %d, met lettertje %d", i,j);
                 }
             }
 
