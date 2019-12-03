@@ -104,6 +104,11 @@ int main (int argc, char * argv[])
                     mq_send (mq_fd_jobs, (char *) &job, sizeof(job), 0);
                     printf("hash nummer %d, met lettertje %d", i,j);
                 }
+
+                printf ("parent: receiving...\n");
+                mq_receive (mq_fd_results, (char *) &result, sizeof(result), NULL);
+
+                printf ("parent: received: %s\n, '", result.m);
             }
 
             printf("past het\n");
@@ -114,16 +119,13 @@ int main (int argc, char * argv[])
 
 
 
-            /**
-             * Evaluate work done by the workers
-             */
-            for (size_t i = 0; i < MD5_LIST_NROF; i++)
-            {
-                printf ("parent: receiving...\n");
-                mq_receive (mq_fd_results, (char *) &result, sizeof(result), NULL);
-
-                printf ("parent: received: %s\n, '", result.m); 
-            }
+            // /**
+            //  * Evaluate work done by the workers
+            //  */
+            // for (size_t i = 0; i < MD5_LIST_NROF; i++)
+            // {
+                 
+            // }
              
             /**
              * Wait until all workers have finished working
