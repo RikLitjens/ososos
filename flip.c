@@ -22,7 +22,8 @@
 #include "flip.h"
 
 
-// some useful functions borrowed from threaded_basics.c
+// some useful functions borrowed from threaded_basics.c:
+
 // create a bitmask where bit at position n is set
 #define BITMASK(n)          (((uint128_t) 1) << (n))
 
@@ -80,6 +81,17 @@ int main (void)
             }
         }
         
+    }
+    for (size_t i = 0; i < bufferLength; i++)
+    {
+        for (size_t j = 0; j < 128; j++)
+        {
+            if ( (buffer[i] & BITMASK(j)) == BITMASK(j) ) {
+                printf ("%d\n", (128*i + j));    
+            }
+        }
+        
+        printf ("v (all 1's) : %lx%016lx\n", HI(buffer[i]), LO(buffer[i]));
     }
     
     
