@@ -68,7 +68,6 @@ flip_thread (void * m_arg)
     m = *m_argi;              // get the integer value of the pointer
     free (m_arg);  
 
-    sleep (1);
     for (size_t p = 1; p < NROF_PIECES; p++)
         {
             if( (p % m) == 0 ) {
@@ -103,7 +102,7 @@ int main (void)
         
         // wait for the thread, and we are interested in the return value
         pthread_join (thread_id, NULL);
-        
+
     }
     for (size_t i = 0; i < (NROF_PIECES/128); i++)
     {
