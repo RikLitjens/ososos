@@ -42,7 +42,7 @@ static pthread_mutex_t      mutex          = PTHREAD_MUTEX_INITIALIZER;
 /*-------------------------------------------------------------------------*/
 
 
-void flipBit(m, p) {
+void flipBit(int m, int p) {
 
     div_t index = div(p, 128);
     int arrayIndex = index.quot;
@@ -56,26 +56,53 @@ void flipBit(m, p) {
     }
 }
 
+static void *
+flip_thread (void * m_arg)
+{
+
+     int *   m_argi; 
+    int     m;      
+    int *   rtnval;
+
+    m_argi = (int *) m_arg;     // proper casting before dereferencing (could also be done in one statement)
+    m = *m_argi;              // get the integer value of the pointer
+    free (m_arg);  
+
+    sleep (1);
+    for (size_t p = 1; p < NROF_PIECES; p++)
+        {
+            if( (p % m) == 0 ) {
+                flipBit(m, p);
+            }
+    }
+
+    return (0);    
+}
+
 int main (void)
 {
     printf("%d\n", ((NROF_PIECES/128)));
 
+    //initialize all values buffer to 1 / black
     for (size_t i = 0; i < (NROF_PIECES/128); i++)
     {
         buffer[i] = ~0;
         printf ("v (all 1's) : %lx%016lx\n", HI(buffer[i]), LO(buffer[i]));
     }
 
+    int *       m_parameter;
+    pthread_t   thread_id;
     // loop through every possible (m)ultiple from
     // 2 and create a flipping thread for it
     for (size_t m = 2; m < NROF_PIECES; m++) 
     {
-        for (size_t p = 1; p < NROF_PIECES; p++)
-        {
-            if( (p % m) == 0 ) {
-                flipBit(m, p);
-            }
-        }
+        m_parameter =  malloc (sizeof (int));
+        *m_parameter = m;
+        printf ("%lx: starting thread ...\n", pthread_self());
+        pthread_create (&thread_id, NULL, flip_thread, m_parameter);
+        
+        // wait for the thread, and we are interested in the return value
+        pthread_join (thread_id, NULL);
         
     }
     for (size_t i = 0; i < (NROF_PIECES/128); i++)
@@ -85,9 +112,7 @@ int main (void)
             if ( BIT_IS_SET(buffer[i], j) ) {
                 printf ("%d\n", (128*i + j));    
             }
-        }
-        
-        printf ("v (all 1's) : %lx%016lx\n", HI(buffer[i]), LO(buffer[i]));
+        }        
     }
     
     
