@@ -47,6 +47,8 @@ static int bufferLength = sizeof(buffer)/sizeof(buffer[0]);
 
 
 void flipBit(m, p) {
+
+    printf(" flipbit \n");
     div_t index = div(p, 128);
     int arrayIndex = index.quot;
     int bitIndex = index.rem;
