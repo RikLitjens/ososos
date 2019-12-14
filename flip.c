@@ -53,11 +53,11 @@ void flipBit(m, p) {
     int arrayIndex = index.quot;
     int bitIndex = index.rem;
 
-    if ( BIT_IS_SET(arrayIndex, bitIndex) ) {
-       BIT_CLEAR(arrayIndex, bitIndex);
+    if ( BIT_IS_SET(buffer[arrayIndex], bitIndex) ) {
+       BIT_CLEAR(buffer[arrayIndex], bitIndex);
     }
     else{
-        BIT_SET(arrayIndex, bitIndex);
+        BIT_SET(buffer[arrayIndex], bitIndex);
     }
 }
 
@@ -88,7 +88,7 @@ int main (void)
     {
         for (size_t j = 0; j < 128; j++)
         {
-            if ( BIT_IS_SET(i, j) ) {
+            if ( BIT_IS_SET(buffer[i], j) ) {
                 printf ("%d\n", (128*i + j));    
             }
         }
