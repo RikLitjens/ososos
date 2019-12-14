@@ -66,7 +66,7 @@ int main (void)
     for (size_t i = 0; i < bufferLength; i++)
     {
         buffer[i] = ~0;
-        printf ("v (all 1's) : %lx%016lx\n", HI(v), LO(v));
+        printf ("v (all 1's) : %lx%016lx\n", HI(buffer[i]), LO(buffer[i]));
     }
 
     // loop through every possible (m)ultiple from
