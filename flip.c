@@ -60,7 +60,7 @@ int main (void)
 {
     printf("%d\n", ((NROF_PIECES/128)));
 
-    for (size_t i = 0; i < (NROF_PIECES/128)); i++)
+    for (size_t i = 0; i < (NROF_PIECES/128); i++)
     {
         buffer[i] = ~0;
         printf ("v (all 1's) : %lx%016lx\n", HI(buffer[i]), LO(buffer[i]));
@@ -78,7 +78,7 @@ int main (void)
         }
         
     }
-    for (size_t i = 0; i < (NROF_PIECES/128)); i++)
+    for (size_t i = 0; i < (NROF_PIECES/128); i++)
     {
         for (size_t j = 0; j < 128; j++)
         {
