@@ -47,10 +47,14 @@ static int bufferLength = sizeof(buffer)/sizeof(buffer[0]);
 
 void flipBit(m, p) {
     div_t index = div(p, 128);
-    arrayIndex = index.quot;
-    bitIndex = index.rem;
-    if ( BIT_IS_SET ) {
+    int arrayIndex = index.quot;
+    int bitIndex = index.rem;
 
+    if ( BIT_IS_SET(arrayIndex, bitIndex) ) {
+       BIT_CLEAR(arrayIndex, bitIndex);
+    }
+    else{
+        BIT_SET(arrayIndex, bitIndex);
     }
 }
 
