@@ -101,9 +101,10 @@ int main (void)
         pthread_create (&thread_id, NULL, flip_thread, m_parameter);
         
         // wait for the thread, and we are interested in the return value
-        pthread_join (thread_id, NULL);
+        //pthread_join (thread_id, NULL);
 
     }
+    pthread_join (thread_id, NULL);
     for (size_t i = 0; i < (NROF_PIECES/128); i++)
     {
         for (size_t j = 0; j < 128; j++)
