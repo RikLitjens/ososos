@@ -88,7 +88,7 @@ int main (void)
     {
         for (size_t j = 0; j < 128; j++)
         {
-            if ( (buffer[i] & BITMASK(j)) == BITMASK(j) ) {
+            if ( BIT_IS_SET(i, j) ) {
                 printf ("%d\n", (128*i + j));    
             }
         }
