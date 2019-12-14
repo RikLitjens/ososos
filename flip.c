@@ -39,16 +39,11 @@
 // declare a mutex, and it is initialized as well
 static pthread_mutex_t      mutex          = PTHREAD_MUTEX_INITIALIZER;
 
-//length of the buffer involved
-static int bufferLength = sizeof(buffer)/sizeof(buffer[0]);
-
-
 /*-------------------------------------------------------------------------*/
 
 
 void flipBit(m, p) {
 
-    printf(" flipbit \n");
     div_t index = div(p, 128);
     int arrayIndex = index.quot;
     int bitIndex = index.rem;
@@ -63,10 +58,9 @@ void flipBit(m, p) {
 
 int main (void)
 {
-    printf("%d\n", bufferLength);
-    printf("%d\n", ((NROF_PIECES/128) + 1));
+    printf("%d\n", ((NROF_PIECES/128)));
 
-    for (size_t i = 0; i < bufferLength; i++)
+    for (size_t i = 0; i < NROF_PIECES/128); i++)
     {
         buffer[i] = ~0;
         printf ("v (all 1's) : %lx%016lx\n", HI(buffer[i]), LO(buffer[i]));
@@ -84,7 +78,7 @@ int main (void)
         }
         
     }
-    for (size_t i = 0; i < bufferLength; i++)
+    for (size_t i = 0; i < NROF_PIECES/128); i++)
     {
         for (size_t j = 0; j < 128; j++)
         {
