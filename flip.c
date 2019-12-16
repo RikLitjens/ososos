@@ -90,7 +90,7 @@ int main (void)
     }
 
     int *       m_parameter;
-    pthread_t   thread_id;
+    pthread_t   thread_id[NROF_PIECES];
     // loop through every possible (m)ultiple from
     // 2 and create a flipping thread for it
     for (size_t m = 2; m < NROF_PIECES; m++) 
@@ -98,13 +98,15 @@ int main (void)
         m_parameter =  malloc (sizeof (int));
         *m_parameter = m;
         printf ("%lx: starting thread ...\n", pthread_self());
-        pthread_create (&thread_id, NULL, flip_thread, m_parameter);
+        pthread_create (&thread_id[m-2], NULL, flip_thread, m_parameter);
         
         // wait for the thread, and we are interested in the return value
         //pthread_join (thread_id, NULL);
 
     }
-    pthread_join (thread_id, NULL);
+    pthread_join (thread_id[0], NULL);
+
+    print('endloopnowprint\n')
     for (size_t i = 0; i < (NROF_PIECES/128); i++)
     {
         for (size_t j = 0; j < 128; j++)
