@@ -106,7 +106,7 @@ int main (void)
     }
     pthread_join (thread_id[0], NULL);
 
-    print('endloopnowprint\n')
+    print('endloopnowprint\n');
     for (size_t i = 0; i < (NROF_PIECES/128); i++)
     {
         for (size_t j = 0; j < 128; j++)
