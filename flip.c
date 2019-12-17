@@ -100,10 +100,9 @@ int main (void)
         printf("it may wait here for a small bit on this %d to finish, so grab yself a cup o tea\n", (m-2) % NROF_THREADS);
         pthread_join (thread_id[(m-2) % NROF_THREADS], NULL);
         
-        
+        printf ("%lx: starting thread ... % d\n", pthread_self(), (m-2) % NROF_THREADS);
         m_parameter =  malloc (sizeof (int));
         *m_parameter = m;
-        printf ("%lx: starting thread ... % d\n", pthread_self(), (m-2) % NROF_THREADS);
         pthread_create (&thread_id[(m-2) % NROF_THREADS], NULL, flip_thread, m_parameter);
 
     }
