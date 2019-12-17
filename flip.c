@@ -99,6 +99,11 @@ int main (void)
     // 2 and create a flipping thread for it.
     for (size_t m = 2; m < NROF_PIECES; m++) 
     {
+        for (size_t i = 0; i < size(thread_id)/thread_id[0]; i++)
+        {
+            printf(thread_id[i]);
+            printf("\n");
+        }
         
         // wait for the thread
         //printf("it may wait here for a small bit on this %d to finish, so grab yself a cup o tea\n", (m-2) % NROF_THREADS);
