@@ -41,8 +41,10 @@ static pthread_mutex_t      mutex          = PTHREAD_MUTEX_INITIALIZER;
 
 /*-------------------------------------------------------------------------*/
 
-
-void flipBit(int m, int p) {
+/**
+ * Flips piece p
+ */
+void flipBit(int p) {
 
     int arrayIndex = p / 128;
     int bitIndex = p % 128;
@@ -57,9 +59,7 @@ void flipBit(int m, int p) {
 
 static void *
 flip_thread (void * m_arg)
-{
-    //printf("a thread has S T A R T E D\n"); //starat
-    
+{    
     int *   m_argi; 
     int     m;      
     int *   rtnval;
@@ -73,24 +73,21 @@ flip_thread (void * m_arg)
             if( (p % m) == 0 ) {
                 //if it needs to flip then lock
                 pthread_mutex_lock (&mutex);
-                flipBit(m, p);
+                flipBit(p);
                 pthread_mutex_unlock (&mutex);
             }
     }
-    
-    //printf("a thread has E N D E D\n");
+
     return (NULL);    
 }
 
 int main (void)
 {
-    //printf("%d\n", ((NROF_PIECES/128)));
 
     //initialize all values buffer to 1 / black
     for (size_t i = 0; i < (NROF_PIECES/128); i++)
     {
         buffer[i] = ~0;
-        printf ("v (all 1's) : %lx%016lx\n", HI(buffer[i]), LO(buffer[i]));
     }
 
     int *       m_parameter;
@@ -101,21 +98,17 @@ int main (void)
     for (size_t m = 2; m < NROF_PIECES; m++) 
     {
         thread_number = (m-2) % NROF_THREADS;
-        
-        
-        //printf("it may wait here for a small bit on this %d to finish, so grab yself a cup o tea\n", (m-2) % NROF_THREADS);
-        
-        // wait for the thread if threads have started 
+
+        // wait for a thread if threads have started 
         if (! (((m-2) / NROF_THREADS) == 0))
         {
             pthread_join (thread_id[thread_number], NULL);
         }
         
-        //printf ("%lx: trying to sTart thread ... % d\n", pthread_self(), (m-2) % NROF_THREADS);
+        //create a new thread
         m_parameter =  malloc (sizeof (int));
         *m_parameter = m;
         pthread_create (&thread_id[thread_number], NULL, flip_thread, m_parameter);
-        //printf("nextloop %d\n",  (m-2) % NROF_THREADS);
     }
     
 
@@ -125,6 +118,7 @@ int main (void)
         pthread_join (thread_id[i], NULL);
     }
     
+    //print the results
     for (size_t i = 0; i < (NROF_PIECES/128); i++)
     {
         for (size_t j = 0; j < 128; j++)
@@ -136,10 +130,7 @@ int main (void)
     }
     
     
-    // TODO: start threads to flip the pieces and output the results
-    // (see thread_test() and thread_mutex_test() how to use threads and mutexes,
-    //  see bit_test() how to manipulate bits in a large integer)
-
+    //cleanup
     pthread_mutex_destroy(&mutex); 
     return (0);
 }
