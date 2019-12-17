@@ -94,7 +94,7 @@ int main (void)
     }
 
     int *       m_parameter;
-    pthread_t   thread_id[NROF_THREADS + 2];
+    pthread_t   thread_id[NROF_THREADS];
     int         thread_number;
     // loop through every possible (m)ultiple from
     // 2 and create a flipping thread for it.
@@ -102,9 +102,10 @@ int main (void)
     {
         thread_number = (m-2) % NROF_THREADS;
         
-        printf("thsi %d \n", thread_number);
-        // wait for the thread
+        
         //printf("it may wait here for a small bit on this %d to finish, so grab yself a cup o tea\n", (m-2) % NROF_THREADS);
+        
+        // wait for the thread if threads have started
         if (! (((m-2) / NROF_THREADS) == 0))
         {
             pthread_join (thread_id[thread_number], NULL);
@@ -113,7 +114,6 @@ int main (void)
         //printf ("%lx: trying to sTart thread ... % d\n", pthread_self(), (m-2) % NROF_THREADS);
         m_parameter =  malloc (sizeof (int));
         *m_parameter = m;
-        printf("komt hier\n");
         pthread_create (&thread_id[thread_number], NULL, flip_thread, m_parameter);
         //printf("nextloop %d\n",  (m-2) % NROF_THREADS);
     }
