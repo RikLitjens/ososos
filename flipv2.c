@@ -108,7 +108,7 @@ int main (void)
         if (! (((m-2) / NROF_THREADS) == 0))
         {
             pthread_mutex_lock (&mutex2);
-            pthread_cond_signal( &condition_var, &mutex2);
+            pthread_cond_wait( &condition_var, &mutex2);
             pthread_mutex_unlock (&mutex2);
         }
         
