@@ -59,7 +59,7 @@ static void *
 flip_thread (void * m_arg)
 {
     //printf("a thread has S T A R T E D\n"); //starat
-    pthread_mutex_lock (&mutex);
+    
     int *   m_argi; 
     int     m;      
     int *   rtnval;
@@ -72,14 +72,13 @@ flip_thread (void * m_arg)
         {
             if( (p % m) == 0 ) {
                 //if it needs to flip then lock
-                
+                pthread_mutex_lock (&mutex);
                 flipBit(m, p);
-                
+                pthread_mutex_unlock (&mutex);
             }
     }
     
     //printf("a thread has E N D E D\n");
-    pthread_mutex_unlock (&mutex);
     return (NULL);    
 }
 
@@ -96,21 +95,23 @@ int main (void)
 
     int *       m_parameter;
     pthread_t   thread_id[NROF_THREADS + 2];
+    int thread_number;
     // loop through every possible (m)ultiple from
     // 2 and create a flipping thread for it.
     for (size_t m = 2; m < NROF_PIECES; m++) 
     {
-        printf("thsi %d \n", (m-2) % NROF_THREADS);
+        thread_number = (m-2) % NROF_THREADS
+        printf("thsi %d \n", thread_number);
         // wait for the thread
         //printf("it may wait here for a small bit on this %d to finish, so grab yself a cup o tea\n", (m-2) % NROF_THREADS);
-        pthread_join (thread_id[(m-2) % NROF_THREADS], NULL);
+        pthread_join (thread_id[thread_number], NULL);
         
         //printf ("%lx: trying to sTart thread ... % d\n", pthread_self(), (m-2) % NROF_THREADS);
 
         m_parameter =  malloc (sizeof (int));
         *m_parameter = m;
         printf("komt hier\n");
-        pthread_create (&thread_id[(m-2) % NROF_THREADS], NULL, flip_thread, m_parameter);
+        pthread_create (&thread_id[thread_number], NULL, flip_thread, m_parameter);
         //printf("nextloop %d\n",  (m-2) % NROF_THREADS);
     }
     
