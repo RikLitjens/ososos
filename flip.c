@@ -105,10 +105,12 @@ int main (void)
         printf("thsi %d \n", thread_number);
         // wait for the thread
         //printf("it may wait here for a small bit on this %d to finish, so grab yself a cup o tea\n", (m-2) % NROF_THREADS);
-        pthread_join (thread_id[thread_number], NULL);
+        if (! (((m-2) / NROF_THREADS) == 0))
+        {
+            pthread_join (thread_id[thread_number], NULL);
+        }
         
         //printf ("%lx: trying to sTart thread ... % d\n", pthread_self(), (m-2) % NROF_THREADS);
-
         m_parameter =  malloc (sizeof (int));
         *m_parameter = m;
         printf("komt hier\n");
