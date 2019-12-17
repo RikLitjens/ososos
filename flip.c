@@ -81,10 +81,17 @@ flip_thread (void * m_arg)
     return (NULL);    
 }
 
+int min2(int int1, int int2){
+    if (int1 <= int2)
+    {
+        return int1;
+    }    
+    return int2;
+}
+
 int main (void)
 {
 
-    //initialize all values buffer to 1 / black, round up
     for (size_t i = 0; i < ((NROF_PIECES-1)/128 + 1); i++)
     {
         printf("%d", i);
@@ -124,14 +131,17 @@ int main (void)
 
     
     //print the results
+    int loopOverPieces = NROF_PIECES;
     for (size_t i = 0; i < ((NROF_PIECES-1)/128 + 1); i++)
     {
-        for (size_t j = 0; j < 128; j++)
+        
+        for (size_t j = 0; j < min2(loopOverPieces,128); j++)
         {
             if ( BIT_IS_SET(buffer[i], j) && !(i == 0 && j==0)  ) {
                 printf ("%d\n", (128*i + j));    
             }
-        }        
+        } 
+        loopOverPieces -= 128;       
     }
     
     
