@@ -123,7 +123,7 @@ int main (void)
     {
         for (size_t j = 0; j < 128; j++)
         {
-            if ( BIT_IS_SET(buffer[i], j) ) {
+            if ( BIT_IS_SET(buffer[i], j) && !(i == 0 && j==0)  ) {
                 printf ("%d\n", (128*i + j));    
             }
         }        
