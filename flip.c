@@ -68,7 +68,6 @@ flip_thread (void * m_arg)
     m = *m_argi;              // get the integer value of the pointer
     free (m_arg);  
 
-    sleep(60); //sleepo
     for (size_t p = 1; p < NROF_PIECES; p++)
         {
             if( (p % m) == 0 ) {
@@ -111,7 +110,6 @@ int main (void)
         *m_parameter = m;
         pthread_create (&thread_id[(m-2) % NROF_THREADS], NULL, flip_thread, m_parameter);
         printf("nextloop %d\n",  (m-2) % NROF_THREADS);
-        sleep(5);
     }
     
 
