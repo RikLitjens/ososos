@@ -58,7 +58,7 @@ void flipBit(int m, int p) {
 static void *
 flip_thread (void * m_arg)
 {
-
+    
     int *   m_argi; 
     int     m;      
     int *   rtnval;
@@ -75,7 +75,7 @@ flip_thread (void * m_arg)
             }
     }
     pthread_mutex_unlock (&mutex);
-
+    printf("a thread has E N D E D\n")
     return (NULL);    
 }
 
@@ -97,16 +97,23 @@ int main (void)
     for (size_t m = 2; m < NROF_PIECES; m++) 
     {
         // wait for the thread
-        pthread_join (thread_id[(m-2) % 10], NULL);
+        pthread_join (thread_id[(m-2) % NROF_THREADS], NULL);
         
         
         m_parameter =  malloc (sizeof (int));
         *m_parameter = m;
-        printf ("%lx: starting thread ...\n", pthread_self());
-        pthread_create (&thread_id[(m-2) % 10], NULL, flip_thread, m_parameter);
+        printf ("%lx: starting thread ... %d\n", pthread_self(), (m-2) % NROF_THREADS);
+        pthread_create (&thread_id[(m-2) % NROF_THREADS], NULL, flip_thread, m_parameter);
         
         
 
+    }
+    
+
+    //wait for any remaining final threads
+    for (size_t i = 0; i < NROF_THREADS; i++)
+    {
+        pthread_join (thread_id[i], NULL);
     }
     
     for (size_t i = 0; i < (NROF_PIECES/128); i++)
