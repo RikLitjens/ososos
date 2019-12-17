@@ -58,7 +58,7 @@ void flipBit(int m, int p) {
 static void *
 flip_thread (void * m_arg)
 {
-    printf("a thread has S T A R T E D\n"); //starat
+    //printf("a thread has S T A R T E D\n"); //starat
     
     int *   m_argi; 
     int     m;      
@@ -68,7 +68,7 @@ flip_thread (void * m_arg)
     m = *m_argi;              // get the integer value of the pointer
     free (m_arg);  
 
-    for (size_t p = 1; p < NROF_PIECES; p++)
+    for (size_t p = m; p < NROF_PIECES; p += m)
         {
             if( (p % m) == 0 ) {
                 //if it needs to flip then lock
@@ -78,13 +78,13 @@ flip_thread (void * m_arg)
             }
     }
     
-    printf("a thread has E N D E D\n");
+    //printf("a thread has E N D E D\n");
     return (NULL);    
 }
 
 int main (void)
 {
-    printf("%d\n", ((NROF_PIECES/128)));
+    //printf("%d\n", ((NROF_PIECES/128)));
 
     //initialize all values buffer to 1 / black
     for (size_t i = 0; i < (NROF_PIECES/128); i++)
@@ -101,15 +101,15 @@ int main (void)
     {
         
         // wait for the thread
-        printf("it may wait here for a small bit on this %d to finish, so grab yself a cup o tea\n", (m-2) % NROF_THREADS);
+        //printf("it may wait here for a small bit on this %d to finish, so grab yself a cup o tea\n", (m-2) % NROF_THREADS);
         pthread_join (thread_id[(m-2) % NROF_THREADS], NULL);
         
-        printf ("%lx: trying to sTart thread ... % d\n", pthread_self(), (m-2) % NROF_THREADS);
+        //printf ("%lx: trying to sTart thread ... % d\n", pthread_self(), (m-2) % NROF_THREADS);
 
         m_parameter =  malloc (sizeof (int));
         *m_parameter = m;
         pthread_create (&thread_id[(m-2) % NROF_THREADS], NULL, flip_thread, m_parameter);
-        printf("nextloop %d\n",  (m-2) % NROF_THREADS);
+        //printf("nextloop %d\n",  (m-2) % NROF_THREADS);
     }
     
 
