@@ -68,14 +68,16 @@ flip_thread (void * m_arg)
     m = *m_argi;              // get the integer value of the pointer
     free (m_arg);  
 
-    pthread_mutex_lock (&mutex);
+    
     for (size_t p = 1; p < NROF_PIECES; p++)
         {
             if( (p % m) == 0 ) {
+                pthread_mutex_lock (&mutex);
                 flipBit(m, p);
+                pthread_mutex_unlock (&mutex);
             }
     }
-    pthread_mutex_unlock (&mutex);
+    
     printf("a thread has E N D E D\n");
     return (NULL);    
 }
