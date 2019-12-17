@@ -72,6 +72,7 @@ flip_thread (void * m_arg)
     for (size_t p = 1; p < NROF_PIECES; p++)
         {
             if( (p % m) == 0 ) {
+                //if it needs to flip then lock
                 pthread_mutex_lock (&mutex);
                 flipBit(m, p);
                 pthread_mutex_unlock (&mutex);
