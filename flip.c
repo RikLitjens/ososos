@@ -95,12 +95,13 @@ int main (void)
 
     int *       m_parameter;
     pthread_t   thread_id[NROF_THREADS + 2];
-    int thread_number;
+    int         thread_number;
     // loop through every possible (m)ultiple from
     // 2 and create a flipping thread for it.
     for (size_t m = 2; m < NROF_PIECES; m++) 
     {
-        thread_number = (m-2) % NROF_THREADS
+        thread_number = (m-2) % NROF_THREADS;
+        
         printf("thsi %d \n", thread_number);
         // wait for the thread
         //printf("it may wait here for a small bit on this %d to finish, so grab yself a cup o tea\n", (m-2) % NROF_THREADS);
