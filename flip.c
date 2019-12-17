@@ -101,7 +101,7 @@ int main (void)
     {
         for (size_t i = 0; i < sizeof(thread_id)/thread_id[0]; i++)
         {
-            printf(thread_id[i]);
+            fprintf(f, "%02x ", (unsigned)(thread_id[i]))
             printf("\n");
         }
         
