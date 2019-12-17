@@ -87,6 +87,7 @@ int main (void)
     //initialize all values buffer to 1 / black, round up
     for (size_t i = 0; i < ((NROF_PIECES-1)/128 + 1); i++)
     {
+        printf("%d", i);
         buffer[i] = ~0;
     }
 
@@ -98,6 +99,7 @@ int main (void)
     // 2 and create a flipping thread for it.
     for (size_t m = 2; m < NROF_PIECES; m++) 
     {
+        printf("does dis loop wurk\n");
         thread_number = (m-2) % NROF_THREADS;
 
         // wait for a thread if threads have started 
@@ -112,15 +114,17 @@ int main (void)
         pthread_create (&thread_id[thread_number], NULL, flip_thread, m_parameter);
     }
     
-
+    printf("is it the opruimen\n");
     //wait for any remaining final threads
     for (size_t i = 0; i < NROF_THREADS; i++)
     {
         pthread_join (thread_id[i], NULL);
     }
     
+
+    
     //print the results
-    for (size_t i = 0; i < (NROF_PIECES/128); i++)
+    for (size_t i = 0; i < ((NROF_PIECES-1)/128 + 1); i++)
     {
         for (size_t j = 0; j < 128; j++)
         {
