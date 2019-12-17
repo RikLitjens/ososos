@@ -84,11 +84,12 @@ flip_thread (void * m_arg)
 int main (void)
 {
 
-    //initialize all values buffer to 1 / black
-    for (size_t i = 0; i < (NROF_PIECES/128); i++)
+    //initialize all values buffer to 1 / black, round up
+    for (size_t i = 0; i < ((NROF_PIECES-1)/128 + 1); i++)
     {
         buffer[i] = ~0;
     }
+
 
     int *       m_parameter;
     pthread_t   thread_id[NROF_THREADS];
