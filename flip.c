@@ -108,6 +108,7 @@ int main (void)
 
         m_parameter =  malloc (sizeof (int));
         *m_parameter = m;
+        printf("komt hier\n");
         pthread_create (&thread_id[(m-2) % NROF_THREADS], NULL, flip_thread, m_parameter);
         //printf("nextloop %d\n",  (m-2) % NROF_THREADS);
     }
