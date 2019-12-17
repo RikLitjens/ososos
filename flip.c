@@ -122,7 +122,7 @@ int main (void)
     // (see thread_test() and thread_mutex_test() how to use threads and mutexes,
     //  see bit_test() how to manipulate bits in a large integer)
 
-    pthread_mutex_destroy(&lock); 
+    pthread_mutex_destroy(&mutex); 
     return (0);
 }
 
