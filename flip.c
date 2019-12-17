@@ -44,8 +44,8 @@ static pthread_mutex_t      mutex          = PTHREAD_MUTEX_INITIALIZER;
 
 void flipBit(int m, int p) {
 
-    int arrayIndex = 128 / p;
-    int bitIndex = 128 % p;
+    int arrayIndex = p / 128;
+    int bitIndex = p % 128;
 
     if ( BIT_IS_SET(buffer[arrayIndex], bitIndex) ) {
        BIT_CLEAR(buffer[arrayIndex], bitIndex);
@@ -99,11 +99,11 @@ int main (void)
         m_parameter =  malloc (sizeof (int));
         *m_parameter = m;
         printf ("%lx: starting thread ...\n", pthread_self());
-        pthread_create (&thread_id[0], NULL, flip_thread, m_parameter);
+        pthread_create (&thread_id[(m-2) % 10], NULL, flip_thread, m_parameter);
         
         // wait for the thread
 
-        pthread_join (thread_id[0], NULL);
+        pthread_join (thread_id[(m-2) % 10], NULL);
 
     }
     
@@ -122,7 +122,7 @@ int main (void)
     // (see thread_test() and thread_mutex_test() how to use threads and mutexes,
     //  see bit_test() how to manipulate bits in a large integer)
 
-    pthread_mutex_destroy(&mutex); 
+    pthread_mutex_destroy(&lock); 
     return (0);
 }
 
