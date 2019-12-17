@@ -58,7 +58,7 @@ void flipBit(int m, int p) {
 static void *
 flip_thread (void * m_arg)
 {
-    printf("a thread has S T A R T E D\n");
+    printf("a thread has S T A R T E D\n"); //starat
     
     int *   m_argi; 
     int     m;      
