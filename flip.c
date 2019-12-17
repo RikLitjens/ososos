@@ -81,6 +81,9 @@ flip_thread (void * m_arg)
     return (NULL);    
 }
 
+/**
+ * returns the minimum of 2 integers
+ */
 int min2(int int1, int int2){
     if (int1 <= int2)
     {
@@ -92,9 +95,9 @@ int min2(int int1, int int2){
 int main (void)
 {
 
+    //fill all buffers with 1
     for (size_t i = 0; i < ((NROF_PIECES-1)/128 + 1); i++)
     {
-        printf("%d", i);
         buffer[i] = ~0;
     }
 
@@ -102,11 +105,11 @@ int main (void)
     int *       m_parameter;
     pthread_t   thread_id[NROF_THREADS];
     int         thread_number;
+    int         threadCount = 0;
     // loop through every possible (m)ultiple from
     // 2 and create a flipping thread for it.
     for (size_t m = 2; m < NROF_PIECES; m++) 
     {
-        printf("does dis loop wurk\n");
         thread_number = (m-2) % NROF_THREADS;
 
         // wait for a thread if threads have started 
@@ -119,11 +122,12 @@ int main (void)
         m_parameter =  malloc (sizeof (int));
         *m_parameter = m;
         pthread_create (&thread_id[thread_number], NULL, flip_thread, m_parameter);
+        threadCount += 1; 
     }
     
-    printf("is it the opruimen\n");
-    //wait for any remaining final threads
-    for (size_t i = 0; i < NROF_THREADS; i++)
+    //wait for any remaining final threads, if less than possible
+    // amount of threads is created, only loop over them
+    for (size_t i = 0; i < min2(threadCount, NROF_THREADS); i++)
     {
         pthread_join (thread_id[i], NULL);
     }
@@ -134,7 +138,7 @@ int main (void)
     int loopOverPieces = NROF_PIECES;
     for (size_t i = 0; i < ((NROF_PIECES-1)/128 + 1); i++)
     {
-        
+        // loop over all or over the remaining pieces
         for (size_t j = 0; j < min2(loopOverPieces,128); j++)
         {
             if ( BIT_IS_SET(buffer[i], j) && !(i == 0 && j==0)  ) {
