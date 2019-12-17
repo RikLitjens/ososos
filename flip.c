@@ -68,7 +68,7 @@ flip_thread (void * m_arg)
     m = *m_argi;              // get the integer value of the pointer
     free (m_arg);  
 
-    
+    sleep(5);
     for (size_t p = 1; p < NROF_PIECES; p++)
         {
             if( (p % m) == 0 ) {
