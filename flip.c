@@ -105,7 +105,7 @@ int main (void)
         
         //printf("it may wait here for a small bit on this %d to finish, so grab yself a cup o tea\n", (m-2) % NROF_THREADS);
         
-        // wait for the thread if threads have started
+        // wait for the thread if threads have started 
         if (! (((m-2) / NROF_THREADS) == 0))
         {
             pthread_join (thread_id[thread_number], NULL);
