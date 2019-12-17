@@ -105,9 +105,10 @@ int main (void)
         pthread_join (thread_id[((m-2) % NROF_THREADS)], NULL);
         
         //printf ("%lx: trying to sTart thread ... % d\n", pthread_self(), (m-2) % NROF_THREADS);
-
+        
         m_parameter =  malloc (sizeof (int));
         *m_parameter = m;
+        print('gaat tot hier lekker\n')
         pthread_create (&thread_id[((m-2) % NROF_THREADS)], NULL, flip_thread, m_parameter);
         //printf("nextloop %d\n",  (m-2) % NROF_THREADS);
     }
