@@ -97,7 +97,7 @@ int main (void)
     for (size_t m = 2; m < NROF_PIECES; m++) 
     {
         // wait for the thread
-        printf("it may wait here for a small bit, so grab yself a cup o tea\n");
+        printf("it may wait here for a small bit on this %d to finish, so grab yself a cup o tea\n", (m-2) % NROF_THREADS);
         pthread_join (thread_id[(m-2) % NROF_THREADS], NULL);
         
         
@@ -105,8 +105,6 @@ int main (void)
         *m_parameter = m;
         printf ("%lx: starting thread ... % d\n", pthread_self(), (m-2) % NROF_THREADS);
         pthread_create (&thread_id[(m-2) % NROF_THREADS], NULL, flip_thread, m_parameter);
-        
-        
 
     }
     
