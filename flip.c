@@ -97,12 +97,14 @@ int main (void)
     for (size_t m = 2; m < NROF_PIECES; m++) 
     {
 
-        pthread_join (thread_id[(m-2)%10], NULL);
+        
 
         m_parameter =  malloc (sizeof (int));
         *m_parameter = m;
         printf ("%lx: starting thread ...\n", pthread_self());
-        pthread_create (&thread_id[(m-2)%10], NULL, flip_thread, m_parameter);     
+        pthread_create (&thread_id[(m-2)%10], NULL, flip_thread, m_parameter);    
+
+        pthread_join (thread_id[(m-2)%10], NULL); 
 
     }
     
