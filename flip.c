@@ -94,7 +94,7 @@ int main (void)
     }
 
     int *       m_parameter;
-    pthread_t   thread_id[NROF_THREADS + 1];
+    pthread_t   thread_id[NROF_PIECES];
     // loop through every possible (m)ultiple from
     // 2 and create a flipping thread for it.
     for (size_t m = 2; m < NROF_PIECES; m++) 
