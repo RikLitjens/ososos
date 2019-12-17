@@ -157,17 +157,17 @@ thread_mutex_test (void)
 {
     pthread_t   my_threads[2];
 
-    printf ("%lx: starting first thread ...\n", pthread_self());
+    //printf ("%lx: starting first thread ...\n", pthread_self());
     pthread_create (&my_threads[0], NULL, my_mutex_thread, NULL);
     sleep (3);
-    printf ("%lx: starting second thread ...\n", pthread_self());
+    //printf ("%lx: starting second thread ...\n", pthread_self());
     pthread_create (&my_threads[1], NULL, my_mutex_thread, NULL);
     
     // wait for threads, but we are not interested in the return value 
     pthread_join (my_threads[0], NULL);
     pthread_join (my_threads[1], NULL); 
     
-    printf ("%lx: threads ready\n", pthread_self());
+    //printf ("%lx: threads ready\n", pthread_self());
     printf ("\n");
 }
 
