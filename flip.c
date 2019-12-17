@@ -97,7 +97,7 @@ int main (void)
     for (size_t m = 2; m < NROF_PIECES; m++) 
     {
         // wait for the thread
-        printf("it may wait here for a small bit, so grab yself a cup o tea\n")
+        printf("it may wait here for a small bit, so grab yself a cup o tea\n");
         pthread_join (thread_id[(m-2) % NROF_THREADS], NULL);
         
         
