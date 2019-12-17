@@ -68,7 +68,7 @@ flip_thread (void * m_arg)
     m = *m_argi;              // get the integer value of the pointer
     free (m_arg);  
 
-    sleep(5); //sleepo
+    sleep(10); //sleepo
     for (size_t p = 1; p < NROF_PIECES; p++)
         {
             if( (p % m) == 0 ) {
@@ -100,6 +100,7 @@ int main (void)
     // 2 and create a flipping thread for it.
     for (size_t m = 2; m < NROF_PIECES; m++) 
     {
+        
         // wait for the thread
         printf("it may wait here for a small bit on this %d to finish, so grab yself a cup o tea\n", (m-2) % NROF_THREADS);
         pthread_join (thread_id[(m-2) % NROF_THREADS], NULL);
@@ -110,6 +111,7 @@ int main (void)
         *m_parameter = m;
         pthread_create (&thread_id[(m-2) % NROF_THREADS], NULL, flip_thread, m_parameter);
         printf("nextloop %d\n",  (m-2) % NROF_THREADS);
+        sleep(5);
     }
     
 
