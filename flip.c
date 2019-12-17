@@ -99,16 +99,16 @@ int main (void)
     // 2 and create a flipping thread for it.
     for (size_t m = 2; m < NROF_PIECES; m++) 
     {
-        
+        printf("thsi %d \n", (m-2) % NROF_THREADS)
         // wait for the thread
         //printf("it may wait here for a small bit on this %d to finish, so grab yself a cup o tea\n", (m-2) % NROF_THREADS);
-        pthread_join (thread_id[(m-2) % NROF_THREADS], NULL);
+        pthread_join (thread_id[((m-2) % NROF_THREADS)], NULL);
         
         //printf ("%lx: trying to sTart thread ... % d\n", pthread_self(), (m-2) % NROF_THREADS);
 
         m_parameter =  malloc (sizeof (int));
         *m_parameter = m;
-        pthread_create (&thread_id[(m-2) % NROF_THREADS], NULL, flip_thread, m_parameter);
+        pthread_create (&thread_id[((m-2) % NROF_THREADS)], NULL, flip_thread, m_parameter);
         //printf("nextloop %d\n",  (m-2) % NROF_THREADS);
     }
     
@@ -128,12 +128,6 @@ int main (void)
             }
         }        
     }
-    
-    
-    // TODO: start threads to flip the pieces and output the results
-    // (see thread_test() and thread_mutex_test() how to use threads and mutexes,
-    //  see bit_test() how to manipulate bits in a large integer)
-
     pthread_mutex_destroy(&mutex); 
     return (0);
 }
