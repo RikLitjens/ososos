@@ -75,7 +75,7 @@ flip_thread (void * m_arg)
             }
     }
     pthread_mutex_unlock (&mutex);
-    printf("a thread has E N D E D\n")
+    printf("a thread has E N D E D\n");
     return (NULL);    
 }
 
