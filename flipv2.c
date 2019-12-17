@@ -38,6 +38,7 @@
 
 // declare a mutex, and it is initialized as well
 static pthread_mutex_t      mutex          = PTHREAD_MUTEX_INITIALIZER;
+static pthread_mutex_t      mutex2          = PTHREAD_MUTEX_INITIALIZER;
 pthread_cond_t              condition_var  = PTHREAD_COND_INITIALIZER;
 
 
@@ -106,7 +107,9 @@ int main (void)
         // wait for a thread if threads have started 
         if (! (((m-2) / NROF_THREADS) == 0))
         {
-            pthread_cond_wait( &condition_var);
+            pthread_mutex_lock (&mutex2);
+            pthread_cond_signal( &condition_var, &mutex2);
+            pthread_mutex_unlock (&mutex2);
         }
         
         //create a new thread
