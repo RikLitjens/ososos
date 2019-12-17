@@ -59,7 +59,7 @@ static void *
 flip_thread (void * m_arg)
 {
     //printf("a thread has S T A R T E D\n"); //starat
-    
+    pthread_mutex_lock (&mutex);
     int *   m_argi; 
     int     m;      
     int *   rtnval;
@@ -72,13 +72,14 @@ flip_thread (void * m_arg)
         {
             if( (p % m) == 0 ) {
                 //if it needs to flip then lock
-                pthread_mutex_lock (&mutex);
+                
                 flipBit(m, p);
-                pthread_mutex_unlock (&mutex);
+                
             }
     }
     
     //printf("a thread has E N D E D\n");
+    pthread_mutex_unlock (&mutex);
     return (NULL);    
 }
 
