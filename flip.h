@@ -14,13 +14,13 @@
 /**
  * NROF_PIECES: size of the board; number of pieces to be flipped
  */
-#define NROF_PIECES			30
+#define NROF_PIECES			10
 
 /**
  * NROF_THREADS: number of threads that can be run in parallel
  * (value must be between 1 and ... (until you run out of system resources))
  */
-#define NROF_THREADS		100
+#define NROF_THREADS		20
 
 /**
  * buffer[]: datastructure of the pieces; each piece is represented by one bit
