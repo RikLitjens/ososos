@@ -43,37 +43,28 @@ producer (void * arg)
     {
         // get the new item
 		ITEM item = get_next_item();
+		
 		//stop if get_next_item indicates that the production is done
 		if(item == NROF_ITEMS){break;printf("istie nou dooi");}
         rsleep (100);	// simulating all kind of activities...
 		
-		//put item into the buffer
+		
 		pthread_mutex_lock(&mutex);
+		
+		//wait until the buffer is not full
 		while ( !(elementsInBuffer < BUFFER_SIZE) )
 		{
 			pthread_cond_wait(&conditionWorkToDo, &mutex);
 		}
+		
+		//put item into the buffer
 		buffer[nextBufferSetPos] = item;
 		nextBufferSetPos = (nextBufferSetPos + 1) % BUFFER_SIZE;
 		elementsInBuffer +=1;
 
-		//send signal to the consumer that he can resume consuming
+		//send signal to the consumer that it can resume consuming
 		pthread_cond_signal(&conditionConsToDo);
-		
-
 		pthread_mutex_unlock(&mutex);
-		// TODO:
-		// * put the item into buffer[]
-		//
-        // follow this pseudocode (according to the ConditionSynchronization lecture):
-        //      mutex-lock;
-        //      while not condition-for-this-producer
-        //          wait-cv;
-        //      critical-section;
-        //      possible-cv-signals;
-        //      mutex-unlock;
-        //
-        // (see condition_test() in condition_basics.c how to use condition variables)
     }
 	return (NULL);
 }
@@ -86,31 +77,27 @@ consumer (void * arg)
 	int consumptionCount = 0;
     while (true /* TODO: not all items retrieved from buffer[] */)
     {
-        // TODO: 
-		// * get the next item from buffer[]
-		if(consumptionCount == NROF_ITEMS){break;printf("istie nou dooi");}
+        //finish if all items are consumed
+		if(consumptionCount == NROF_ITEMS){break;}
 		
 		pthread_mutex_lock(&mutex);
+
+		//wait until a product comes available for consumption
 		while (!(elementsInBuffer > 0)){
 			pthread_cond_wait(&conditionConsToDo, &mutex);
 		}
+
+		//load item from buffer and print
 		ITEM item = buffer[nextBufferGetPos];
-		//break if item indicates that all work has been done
-		
 		printf("%d\n", item);
+
 		nextBufferGetPos = (nextBufferGetPos + 1) % BUFFER_SIZE;
 		elementsInBuffer-=1;
 		consumptionCount+=1;
+
+		//signal that a producer can make a product again
 		pthread_cond_signal(&conditionWorkToDo);
 		pthread_mutex_unlock(&mutex);
-        //
-        // follow this pseudocode (according to the ConditionSynchronization lecture):
-        //      mutex-lock;
-        //      while not condition-for-this-consumer
-        //          wait-cv;
-        //      critical-section;
-        //      possible-cv-signals;
-        //      mutex-unlock;
 		
         rsleep (100);		// simulating all kind of activities...
     }
@@ -128,12 +115,16 @@ int main (void)
 	}
 	pthread_create (&my_threads[NROF_PRODUCERS], NULL, consumer, NULL);
 
-	//wait for threads
+	//wait for threads to finish
 	for (size_t i = 0; i < NROF_PRODUCERS+1; i++)
 	{
     	pthread_join (my_threads[i], NULL);  
-		printf("a worker is dead\n");
 	}
+
+	 //cleanup
+	 pthread_cond_destroy(&conditionWorkToDo); 
+	 pthread_cond_destroy(&conditionConsToDo); 
+	 pthread_mutex_destroy(&mutex);
 	
     return (0);
 }
