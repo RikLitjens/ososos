@@ -43,7 +43,8 @@ producer (void * arg)
     {
         // get the new item
 		ITEM item = get_next_item();
-		
+		//stop if get_next_item indicates that the production is done
+		if(item == NROF_ITEMS){break;printf("istie nou dooi");}
         rsleep (100);	// simulating all kind of activities...
 		
 		//put item into the buffer
@@ -53,8 +54,6 @@ producer (void * arg)
 			pthread_cond_wait(&conditionWorkToDo, &mutex);
 		}
 		buffer[nextBufferSetPos] = item;
-		//put item in buffer for consumer and go
-		if(item == NROF_ITEMS){break;printf("istie nou dooi");}
 		nextBufferSetPos = (nextBufferSetPos + 1) % BUFFER_SIZE;
 		elementsInBuffer +=1;
 
@@ -84,11 +83,12 @@ static void *
 consumer (void * arg)
 {
 	int nextBufferGetPos = 0;
+	int consumptionCount = 0;
     while (true /* TODO: not all items retrieved from buffer[] */)
     {
         // TODO: 
 		// * get the next item from buffer[]
-
+		if(consumptionCount == NROF_ITEMS){break;printf("istie nou dooi");}
 		
 		pthread_mutex_lock(&mutex);
 		while (!(elementsInBuffer > 0)){
@@ -96,10 +96,11 @@ consumer (void * arg)
 		}
 		ITEM item = buffer[nextBufferGetPos];
 		//break if item indicates that all work has been done
-		if(item == NROF_ITEMS){break;printf("istie nou dooi");}
+		
 		printf("%d\n", item);
 		nextBufferGetPos = (nextBufferGetPos + 1) % BUFFER_SIZE;
 		elementsInBuffer-=1;
+		consumptionCount+=1;
 		pthread_cond_signal(&conditionWorkToDo);
 		pthread_mutex_unlock(&mutex);
         //
