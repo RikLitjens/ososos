@@ -92,7 +92,7 @@ consumer (void * arg)
 		while (!(elementsInBuffer > 0)){
 			pthread_cond_wait(&conditionConsToDo, &mutex);
 		}
-		ITEM item = buffer[productionCount % BUFFER_SIZE];
+		ITEM item = buffer[consumptionCount % BUFFER_SIZE];
 		printf("%d\n", item);
 		consumptionCount +=1;
 		pthread_cond_signal(&conditionWorkToDo);
