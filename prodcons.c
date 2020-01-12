@@ -32,7 +32,7 @@ static pthread_mutex_t      mutex            		 = PTHREAD_MUTEX_INITIALIZER;
 static pthread_cond_t       conditionWorkToDo        = PTHREAD_COND_INITIALIZER;
 static pthread_cond_t       conditionConsToDo        = PTHREAD_COND_INITIALIZER;
 static int					elementsInBuffer 	     = 0;
-static int 					productionCount          = 0;
+static int 					nextBufferSetPos         = 0;
 
 
 /* producer thread */
@@ -43,7 +43,7 @@ producer (void * arg)
     {
         // get the new item
 		ITEM item = get_next_item();
-		if(item == NROF_ITEMS){break;}
+		
         rsleep (100);	// simulating all kind of activities...
 		
 		//put item into the buffer
@@ -53,8 +53,10 @@ producer (void * arg)
 			pthread_cond_wait(&conditionWorkToDo, &mutex);
 		}
 		
-		buffer[productionCount % BUFFER_SIZE] = item;
-		productionCount+=1;
+		buffer[nextBufferSetPos] = item;
+		//put item in buffer for consumer and go
+		if(item == NROF_ITEMS){break;}
+		nextBufferSetPos = (nextBufferSetPos + 1) % BUFFER_SIZE;
 		elementsInBuffer +=1;
 
 		//send signal to the consumer that he can resume consuming
@@ -82,7 +84,7 @@ producer (void * arg)
 static void * 
 consumer (void * arg)
 {
-	int consumptionCount = 0;
+	int nextBufferGetPos = 0;
     while (true /* TODO: not all items retrieved from buffer[] */)
     {
         // TODO: 
@@ -92,9 +94,11 @@ consumer (void * arg)
 		while (!(elementsInBuffer > 0)){
 			pthread_cond_wait(&conditionConsToDo, &mutex);
 		}
-		ITEM item = buffer[consumptionCount % BUFFER_SIZE];
+		ITEM item = buffer[nextBufferGetPos];
+		//break if item indicates that all work has been done
+		if(item == NROF_ITEMS){break;}
 		printf("%d\n", item);
-		consumptionCount +=1;
+		nextBufferGetPos = (nextBufferGetPos + 1) % BUFFER_SIZE;
 		pthread_cond_signal(&conditionWorkToDo);
 		pthread_mutex_unlock(&mutex);
         //
