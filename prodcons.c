@@ -27,21 +27,41 @@ static ITEM buffer[BUFFER_SIZE];
 
 static void rsleep (int t);			// already implemented (see below)
 static ITEM get_next_item (void);	// already implemented (see below)
+// declare a mutex and a condition variable, and they are initialized as well
+static pthread_mutex_t      mutex            		 = PTHREAD_MUTEX_INITIALIZER;
+static pthread_cond_t       conditionWorkToDo        = PTHREAD_COND_INITIALIZER;
+static pthread_cond_t       conditionConsToDo        = PTHREAD_COND_INITIALIZER;
+static int					elementsInBuffer 	     = 0;
+static int 					productionCount          = 0;
 
 
 /* producer thread */
 static void * 
 producer (void * arg)
 {
-    while (true /* TODO: not all items produced */)
+    while (true)
     {
-        // TODO: 
         // get the new item
-		ITEM nextItem = get_next_item();
+		ITEM item = get_next_item();
+		if(item == NROF_ITEMS){break;}
         rsleep (100);	// simulating all kind of activities...
 		
 		//put item into the buffer
-		buffer[] = nextItem;
+		pthread_mutex_lock(&mutex);
+		while ( !(elementsInBuffer < BUFFER_SIZE) )
+		{
+			pthread_cond_wait(&conditionWorkToDo, &mutex);
+		}
+		
+		buffer[productionCount % BUFFER_SIZE] = item;
+		productionCount+=1;
+		elementsInBuffer +=1;
+
+		//send signal to the consumer that he can resume consuming
+		pthread_cond_signal(&conditionConsToDo);
+		
+
+		pthread_mutex_unlock(&mutex);
 		// TODO:
 		// * put the item into buffer[]
 		//
@@ -62,11 +82,21 @@ producer (void * arg)
 static void * 
 consumer (void * arg)
 {
+	int consumptionCount = 0;
     while (true /* TODO: not all items retrieved from buffer[] */)
     {
         // TODO: 
 		// * get the next item from buffer[]
+
+		pthread_mutex_lock(&mutex);
+		while (!(elementsInBuffer > 0)){
+			pthread_cond_wait(&conditionConsToDo, &mutex);
+		}
+		ITEM item = buffer[productionCount % BUFFER_SIZE];
 		printf("%d\n", item);
+		consumptionCount +=1;
+		pthread_cond_signal(&conditionWorkToDo);
+		pthread_mutex_unlock(&mutex);
         //
         // follow this pseudocode (according to the ConditionSynchronization lecture):
         //      mutex-lock;
@@ -84,14 +114,20 @@ consumer (void * arg)
 int main (void)
 {
 
-	//create producer and consumer
-	pthread_t   my_threads[2];
-	pthread_create (&my_threads[0], NULL, producer, NULL);
-	pthread_create (&my_threads[1], NULL, consumer, NULL);
+	//create producers and a consumer
+	pthread_t   my_threads[NROF_PRODUCERS+1];
+	for (size_t i = 0; i < NROF_PRODUCERS; i++)
+	{
+		pthread_create (&my_threads[i], NULL, producer, NULL);
+	}
+	pthread_create (&my_threads[NROF_PRODUCERS], NULL, consumer, NULL);
 
 	//wait for threads
-	pthread_join (my_threads[0], NULL);
-    pthread_join (my_threads[1], NULL);  
+	for (size_t i = 0; i < NROF_PRODUCERS+1; i++)
+	{
+    	pthread_join (my_threads[i], NULL);  
+	}
+	
     return (0);
 }
 
