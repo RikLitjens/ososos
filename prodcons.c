@@ -41,7 +41,6 @@ producer (void * arg)
 {
     while (true)
     {
-		sleep(1);
         // get the new item
 		ITEM item = get_next_item();
 		
@@ -54,7 +53,6 @@ producer (void * arg)
 		{
 			pthread_cond_wait(&conditionWorkToDo, &mutex);
 		}
-		sleep(0.5);
 		printf("add item and send signal to consumer\n");
 		buffer[nextBufferSetPos] = item;
 		//put item in buffer for consumer and go
@@ -87,7 +85,6 @@ producer (void * arg)
 static void * 
 consumer (void * arg)
 {
-	sleep(1);
 	int nextBufferGetPos = 0;
     while (true /* TODO: not all items retrieved from buffer[] */)
     {
