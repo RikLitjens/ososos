@@ -60,6 +60,7 @@ producer (void * arg)
 			pthread_cond_signal(&conditionNextItem);	
 		}
 		
+		expectedItem+=1;
 		//wait until the buffer is not full by condition Vars, because
 		//get_next_item() states that one producer always has the next item
 		while ( !(elementsInBuffer < BUFFER_SIZE) )
