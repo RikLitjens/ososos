@@ -48,15 +48,13 @@ producer (void * arg)
 		
 		//put item into the buffer
 		pthread_mutex_lock(&mutex);
-		printf("wait to add item\n");
 		while ( !(elementsInBuffer < BUFFER_SIZE) )
 		{
 			pthread_cond_wait(&conditionWorkToDo, &mutex);
 		}
-		printf("add item and send signal to consumer\n");
 		buffer[nextBufferSetPos] = item;
 		//put item in buffer for consumer and go
-		if(item == NROF_ITEMS){break;}
+		if(item == NROF_ITEMS){break;printf("istie nou dooi");}
 		nextBufferSetPos = (nextBufferSetPos + 1) % BUFFER_SIZE;
 		elementsInBuffer +=1;
 
@@ -91,16 +89,14 @@ consumer (void * arg)
         // TODO: 
 		// * get the next item from buffer[]
 
-		printf("wait to receive item\n");
 		
 		pthread_mutex_lock(&mutex);
 		while (!(elementsInBuffer > 0)){
 			pthread_cond_wait(&conditionConsToDo, &mutex);
 		}
-		printf("receive item and send signal");
 		ITEM item = buffer[nextBufferGetPos];
 		//break if item indicates that all work has been done
-		if(item == NROF_ITEMS){break;}
+		if(item == NROF_ITEMS){break;printf("istie nou dooi");}
 		printf("%d\n", item);
 		nextBufferGetPos = (nextBufferGetPos + 1) % BUFFER_SIZE;
 		elementsInBuffer-=1;
