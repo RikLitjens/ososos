@@ -74,7 +74,7 @@ producer (void * arg)
 		expectedItem+=1;
 		printf(" niewe explected is %d", expectedItem );
 		if(NROF_PRODUCERS > 1){
-			pthread_cond_signal(&conditionNextItem);	
+			pthread_cond_sigall(&conditionNextItem);	
 		}
 
 		//send signal to the consumer that it can resume consuming
