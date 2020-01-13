@@ -45,22 +45,19 @@ producer (void * arg)
     {
         // get the new item
 		ITEM item = get_next_item();
-		
-		//stop if get_next_item indicates that the production is done
-		if(item == NROF_ITEMS){break;}
-        rsleep (100);	// simulating all kind of activities...
-		
-		
+
 		pthread_mutex_lock(&mutex);
 		//to make sure the items are placed in the buffer in ascending order
 		while (item != expectedItem){
 			pthread_cond_wait(&conditionNextItem, &mutex);
 		}
-		if(NROF_PRODUCERS > 1){
-			pthread_cond_signal(&conditionNextItem);	
-		}
+		pthread_mutex_unlock(&mutex);
 		
-		expectedItem+=1;
+		//stop if get_next_item indicates that the production is done
+		if(item == NROF_ITEMS){break;}
+        rsleep (100);	// simulating all kind of activities...
+		
+		pthread_mutex_lock(&mutex);
 		//wait until the buffer is not full by condition Vars, because
 		//get_next_item() states that one producer always has the next item
 		while ( !(elementsInBuffer < BUFFER_SIZE) )
@@ -68,10 +65,14 @@ producer (void * arg)
 			pthread_cond_wait(&conditionWorkToDo, &mutex);
 		}
 		
-		//put item into the buffer
+		//put item into the buffer and update vars
 		buffer[nextBufferSetPos] = item;
 		nextBufferSetPos = (nextBufferSetPos + 1) % BUFFER_SIZE;
 		elementsInBuffer +=1;
+		expectedItem+=1;
+		if(NROF_PRODUCERS > 1){
+			pthread_cond_signal(&conditionNextItem);	
+		}
 
 		//send signal to the consumer that it can resume consuming
 		if(elementsInBuffer==1){
