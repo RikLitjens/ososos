@@ -48,13 +48,11 @@ producer (void * arg)
 
 		pthread_mutex_lock(&mutex);
 		//to make sure the items are placed in the buffer in ascending order
-		printf(" wait wait wait \n");
 		while (item != expectedItem){
 			pthread_cond_wait(&conditionNextItem, &mutex);
 		}
 		pthread_mutex_unlock(&mutex);
 		
-		printf("%d dezze komte rdoor", item);
 		//stop if get_next_item indicates that the production is done
 		if(item == NROF_ITEMS){break;}
         rsleep (100);	// simulating all kind of activities...
@@ -72,7 +70,6 @@ producer (void * arg)
 		nextBufferSetPos = (nextBufferSetPos + 1) % BUFFER_SIZE;
 		elementsInBuffer +=1;
 		expectedItem+=1;
-		printf(" niewe explected is %d", expectedItem );
 		if(NROF_PRODUCERS > 1){
 			pthread_cond_broadcast(&conditionNextItem);	
 		}
