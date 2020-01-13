@@ -54,7 +54,7 @@ producer (void * arg)
 		}
 		pthread_mutex_unlock(&mutex);
 		
-		printf("%d dezze komte rdoor", item)
+		printf("%d dezze komte rdoor", item);
 		//stop if get_next_item indicates that the production is done
 		if(item == NROF_ITEMS){break;}
         rsleep (100);	// simulating all kind of activities...
